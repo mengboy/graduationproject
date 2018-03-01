@@ -81,7 +81,7 @@
     <div class="left_box" id="spleft">
         <div class="lanmu_title">研究方向</div>
         <div id="lanmu_list">
-            <ul>
+            <ul id="directionType">
                 <li id="cbnavactive" ><a href="yjfx.html" title="说明">大数据、云计算及智能技术领域</a></li>
                 <li  ><a href="../type/yjfx2.html" title="说明">机器人与智能系统</a></li>
                 <li  ><a href="../type/yjfx3.html" title="说明">地理信息系统、虚拟地理环境领域</a></li>
@@ -103,8 +103,8 @@
                 <li><a href="#">交流空间</a></li>
             </ul>
             <div class="tabs-container">
-                <div class="tab-nested ctbox">
-                    <h4 class="yjbt_fl"><img src="../web/images/yj_1gs.jpg" />大数据、云计算</h4>
+                <div class="tab-nested ctbox" id="content">
+                    <h4 class="yjbt_fl"><img src="../web/images/yj_1gs.jpg" /> 大数据、云计算</h4>
                     <div class="textbox">
                         <p align="left">&nbsp; &nbsp; &nbsp;1) 云计算就是硬件资源的虚拟化、大数据就是海量数据的高效处理</p>
                         <p align="left">&nbsp; &nbsp; &nbsp;&nbsp;云计算作为计算资源的底层，支撑着上层的大数据处理，而大数据的发展趋势是，实时交互式的查询效率和分析能力。在谈大数据的时候，首先谈到的就是大数据的4V特性，即类型复杂，海量，快速和价值。大数据两大核心为云技术和BI，离开云技术大数据没有根基和落地可能，离开BI和价值，大数据又变化为舍本逐末，丢弃关键目标。简单总结就是大数据目标驱动是BI，大数据实施落地式云技术。</p>
@@ -264,6 +264,69 @@
 <!--切换图JS-->
 <script src="../web/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../web/js/banner.slide.jquery.js"></script>
+<script type="text/javascript" src="../web/js/urlParams.js"></script>
+
+<script type="text/javascript">
+
+    // <h4 class="yjbt_fl"><img src="../web/images/yj_1gs.jpg" /> 大数据、云计算</h4>
+    // <div class="textbox">
+    //     <p align="left">&nbsp; &nbsp; &nbsp;1) 云计算就是硬件资源的虚拟化、大数据就是海量数据的高效处理</p>
+    // <p align="left">&nbsp; &nbsp; &nbsp;&nbsp;云计算作为计算资源的底层，支撑着上层的大数据处理，而大数据的发展趋势是，实时交互式的查询效率和分析能力。在谈大数据的时候，首先谈到的就是大数据的4V特性，即类型复杂，海量，快速和价值。大数据两大核心为云技术和BI，离开云技术大数据没有根基和落地可能，离开BI和价值，大数据又变化为舍本逐末，丢弃关键目标。简单总结就是大数据目标驱动是BI，大数据实施落地式云技术。</p>
+    // <p align="left">&nbsp; &nbsp; &nbsp;2) 大数据智慧建设</p>
+    // <p align="left">&nbsp; &nbsp; &nbsp;&nbsp;所谓大数据，麦肯锡全球研究所给出的定义是：一种规模大到在获取、存储、管理、分析方面大大超出了传统数据库软件工具能力范围的数据集合，具有海量的数据规模、快速的数据流转、多样的数据类型和价值密度低四大特征。大数据需要特殊的技术，以有效地处理大量的容忍经过时间内的数据。适用于大数据的技术，包括大规模并行处理（MPP）数据库、数据挖掘电网、分布式文件系统、分布式数据库、云计算平台、互联网和可扩展的存储系统。</p>
+    // </div>
+
+    function getDirection(id) {
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : "/bigdata/direction/" + id,
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(data) {
+                if(data.code == 0){
+                    for(var i = 0; i < data.results.length; i++){
+                        let li = '<li id=' + data.results[i].did + '><a href="javascript:;" onclick="getDirection(\''
+                            + data.results[i].did
+                            + '\')" >' + data.results[i].solutionType + '</li>';
+                        $("#directionType").append(li);
+                    }
+                }else {
+                    let li = "<li><a>获取解决方案失败</a></li>";
+                    $("#directionType").append(li);
+                }
+            }
+        });
+    }
+
+    $().ready(function () {
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : "/bigdata/direction/types",
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(data) {
+                if(data.code == 0){
+                    for(var i = 0; i < data.results.length; i++){
+                        let li = '<li id=' + data.results[i].did + '><a href="javascript:;" onclick="getDirection(\''
+                            + data.results[i].did
+                            + '\')" >' + data.results[i].solutionType + '</li>';
+                        $("#directionType").append(li);
+                    }
+                }else {
+                    let li = "<li><a>获取解决方案失败</a></li>";
+                    $("#directionType").append(li);
+                }
+            }
+        });
+    });
+</script>
+
 <!--导航切换和回到顶部JS-->
 <script src="../web/js/back_top.js" type="text/javascript"></script>
 
@@ -280,6 +343,7 @@
             }
         });
     }
+
 </script>
 </body>
 </html>

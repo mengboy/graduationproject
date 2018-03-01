@@ -52,6 +52,21 @@ public class WebDirectionController {
         return R.ok(map);
     }
 
+    @GetMapping("/{rdid}")
+    @ResponseBody
+    Object getDirection(@PathVariable("rdid") Integer rdid){
+        ResearchDirection researchDirection = null;
+        try{
+            researchDirection = researchDirectionService.selectById(rdid);
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error();
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("direction", researchDirection);
+        return R.ok(map);
+    }
+
     @GetMapping("/showProject/{rdid}")
     @ResponseBody
     Object getShowProject(@PathVariable("rdid") Integer rdid){
