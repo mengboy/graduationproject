@@ -1,0 +1,38 @@
+.scroll_body{width:960px;height:250px;margin:auto;overflow:hidden;position:relative;/*overflow-x:auto;*/}
+.scroll_body .scroll_text{height:280px;}
+.scroll_body .card{background-color:#FFFFFF;cursor:pointer;display:block;height:auto;overflow:hidden;position:absolute;width:228px;}
+.scroll_body .card img{width:228px;float:left;}
+.scroll_body .card .cardTitle{font-family:Arial;font-size:14px;height:auto;letter-spacing:0;line-height:17px;margin:15px 24px 10px;position:relative;width:180px;word-spacing:1px;color:#000000;font-weight:bold;float:left;}
+.scroll_body .card .cardNarrative{color:#000000;font-size:12px;font-weight:normal;height:auto;line-height:15px;margin:0px 24px 15px;position:relative;width:180px;line-height:22px;float:left;}
+.scroll_body .cardShad{box-shadow: 3px 3px 3px #969696;filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=3);}
+//.scroll_body .cardShadMed{box-shadow: 6px 6px 6px #969696;filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=6);}
+.scrollBar{width:960px;height:auto;margin:auto;position:relative;}
+//.scrollBar .scrollLine{width:100%;height:1px;border-top:solid 1px #093f73;position:absolute;top:7px;}
+.scroll_body .cardShadMed{ color:#68a639;}
+.scrollBar .scrollLine{width:99.5%;height:3px; background:#fff; position:absolute;top:7px; border:1px solid #e7e9e8;}
+.scrollBar .scrollBtn{
+	background: url("../images/index_move_rl.png") no-repeat scroll left top transparent;
+	/*background-color:#4786c4;*/
+	height:15px;
+	width:100px;
+	position:absolute;
+	cursor:pointer;
+	overflow:hidden;
+}
+/*
+.scrollBar .scrollBtn{
+	background-image:url(/wrisc/static/v2/images/le_ri2.gif);
+	background-color:#68A639;
+	height:15px;
+	width:53px;
+	height:11px;
+    //position:absolute;
+	cursor:pointer;
+	overflow:hidden;
+}
+*/
+.pop_body{position:fixed;_position:absolute;top:60px;_top:expression(eval(document.documentElement.scrollTop)+60);z-index:99999;width:800px;height:500px;background-color:#FFFFFF;box-shadow: 30px 30px 30px #969696;filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=12);}
+.pop_body .pop_content{overflow:hidden;overflow-y:auto;height:490px;}
+.pop_body .close{position:absolute;background-image:url(/wrisc/static/images/close.png);width:40px;height:40px;right:0px;cursor:pointer;}
+.pop_body .pop_content .pop_title{width:100%;text-align:center;font-size:30px;color:#000000;font-family:新宋体;font-weight:bold;margin:10px 0px;}
+.pop_body .pop_content .pop_text{width:700px;line-height:20px;margin:auto;}

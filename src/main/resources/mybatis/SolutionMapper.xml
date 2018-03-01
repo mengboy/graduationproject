@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.SolutionMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Solution" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="stid" property="stid" jdbcType="INTEGER" />
+    <result column="solution_title" property="solutionTitle" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.Solution" extends="BaseResultMap" >
+    <result column="solution_text" property="solutionText" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, stid, solution_title, publish_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    solution_text
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from solution
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.bootdo.type.domain.Solution">
+      SELECT * FROM solution WHERE 1 = 1
+      <if test="stid != null"> AND stid = #{stid} </if>
+      <if test="offset != null">order by sid asc limit #{offset}, #{limit}</if>
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM solution
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from solution
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.Solution" >
+    insert into solution (sid, stid, solution_title, 
+      publish_time, solution_text)
+    values (#{sid,jdbcType=INTEGER}, #{stid,jdbcType=INTEGER}, #{solutionTitle,jdbcType=VARCHAR}, 
+      #{publishTime,jdbcType=TIMESTAMP}, #{solutionText,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Solution" >
+    insert into solution
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="stid != null" >
+        stid,
+      </if>
+      <if test="solutionTitle != null" >
+        solution_title,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="solutionText != null" >
+        solution_text,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="stid != null" >
+        #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="solutionTitle != null" >
+        #{solutionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="solutionText != null" >
+        #{solutionText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Solution" >
+    update solution
+    <set >
+      <if test="stid != null" >
+        stid = #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="solutionTitle != null" >
+        solution_title = #{solutionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="solutionText != null" >
+        solution_text = #{solutionText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.Solution" >
+    update solution
+    set stid = #{stid,jdbcType=INTEGER},
+      solution_title = #{solutionTitle,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      solution_text = #{solutionText,jdbcType=LONGVARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Solution" >
+    update solution
+    set stid = #{stid,jdbcType=INTEGER},
+      solution_title = #{solutionTitle,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      image_url = #{imageUrl,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

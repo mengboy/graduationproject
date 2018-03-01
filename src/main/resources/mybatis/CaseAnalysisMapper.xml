@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.CaseAnalysisMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.CaseAnalysis" >
+    <id column="caid" property="caid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="case_url" property="caseUrl" jdbcType="VARCHAR" />
+    <result column="rsd_id" property="rsdId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    caid, title, case_url, rsd_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from case_analysis
+    where caid = #{caid,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.bootdo.type.domain.CaseAnalysis">
+      select * from case_analysis ORDER BY caid ASC limit #{offset}, #{limit}
+    </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM case_analysis
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from case_analysis
+    where caid = #{caid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.CaseAnalysis" >
+    insert into case_analysis (caid, title, case_url, 
+      rsd_id)
+    values (#{caid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{caseUrl,jdbcType=VARCHAR}, 
+      #{rsdId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.CaseAnalysis" >
+    insert into case_analysis
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        caid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="caseUrl != null" >
+        case_url,
+      </if>
+      <if test="rsdId != null" >
+        rsd_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        #{caid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="caseUrl != null" >
+        #{caseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rsdId != null" >
+        #{rsdId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.CaseAnalysis" >
+    update case_analysis
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="caseUrl != null" >
+        case_url = #{caseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rsdId != null" >
+        rsd_id = #{rsdId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where caid = #{caid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.CaseAnalysis" >
+    update case_analysis
+    set title = #{title,jdbcType=VARCHAR},
+      case_url = #{caseUrl,jdbcType=VARCHAR},
+      rsd_id = #{rsdId,jdbcType=INTEGER}
+    where caid = #{caid,jdbcType=INTEGER}
+  </update>
+</mapper>

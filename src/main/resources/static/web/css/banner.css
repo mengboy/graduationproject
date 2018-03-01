@@ -1,0 +1,18 @@
+#warp{ position:absolute; left:50%; width:1600px; margin-left:-800px;  height:539px; z-index:2;  }
+#warp #warp-con{ position:absolute;}
+#warp #warp-con li{ float:left; width:1600px; height:539px; position:relative; z-index:2; overflow:hidden; background:url(/wrisc/static/v2/images/loading.gif) no-repeat center center;}
+#warp #warp-con li .wz{ position:absolute; z-index:3; left:300px; bottom:0px;}
+#warp #warp-nav{ position:absolute; left:1090px; top:490px; z-index:2;}
+#warp #warp-nav li{ margin-left:10px; float:left; width:50px; height:50px; position:relative;}
+#warp #warp-nav li a{ border:3px solid #FFF; width:45px; display:block; float:left; color:#ccc; text-decoration:none; }
+#warp #warp-nav li a .nav-con{ visibility:hidden; background:url(/wrisc/static/v2/images/smwzbg.png) left top no-repeat;  width:292px; height:83px;position:absolute; top:-110px; left:-230px;
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=scale,src="images/smwzbg.png");
+_background:none; padding:15px 18px; font-family:"宋体"; line-height:18px;
+}
+#warp #warp-nav li a .nav-con strong{ color: #0cf; font-size:13px;}
+#warp #warp-nav li a .nav-con img{ float:left; width:60px; height:60px; margin:4px; display:inline; border:1px solid #fff; overflow:hidden;}
+
+#warp #warp-nav li a:hover{ zoom:1;}
+#warp #warp-nav li a:hover .nav-con{ visibility:visible; }
+#warp #warp-nav li.selected {top:-5px;}
+
