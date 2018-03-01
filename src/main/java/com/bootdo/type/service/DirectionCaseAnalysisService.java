@@ -17,4 +17,6 @@ public interface DirectionCaseAnalysisService {
     int count();
 
     void upCaseAnalysis(CaseAnalysis caseAnalysis);
+
+    List<CaseAnalysis> getCaseAnalysisByRdID(Integer rdid);
 }

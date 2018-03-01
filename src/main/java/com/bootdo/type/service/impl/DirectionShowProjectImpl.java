@@ -44,4 +44,9 @@ public class DirectionShowProjectImpl implements DirectionShowProject{
     public int count() {
         return showProjectMapper.count();
     }
+
+    @Override
+    public List<ShowProject> getShowProjectByRdID(Integer rdid) {
+        return showProjectMapper.getShowProjectByRdID(rdid);
+    }
 }

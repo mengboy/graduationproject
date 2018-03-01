@@ -21,4 +21,6 @@ public interface CaseAnalysisMapper {
     List<CaseAnalysis> list(Map<String, Object> map);
 
     int count();
+
+    List<CaseAnalysis> getCaseAnalysisByRdID(Integer rdid);
 }

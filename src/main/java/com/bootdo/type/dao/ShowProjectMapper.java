@@ -23,4 +23,6 @@ public interface ShowProjectMapper {
     List<ShowProject> selectShowProjects(Map<String, Object> map);
 
     int count();
+
+    List<ShowProject> getShowProjectByRdID(Integer rdid);
 }

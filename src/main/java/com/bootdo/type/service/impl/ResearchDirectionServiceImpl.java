@@ -51,4 +51,9 @@ public class ResearchDirectionServiceImpl implements ResearchDirectionService{
     public int count() {
         return researchDirectionMapper.count();
     }
+
+    @Override
+    public List<ResearchDirection> getAllDirection() {
+        return researchDirectionMapper.getDirections();
+    }
 }

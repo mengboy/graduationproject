@@ -32,14 +32,14 @@
             <p id="lang"><span id="btn">搜索</span>|<a href="index.html">中文</a>|<a target="_blank" href="#">Egnlish</a><!-- <a target="_blank" href="http://www.wrisc.cn/wrisc/en/index.html">Egnlish</a> --></p>
             <ul id="nav" style="width: 740px;">
                 <li id="moved"><img src="../web/images/hoverbg.gif" width="55" height="9" /></li>
-                <li class="navitem"><a href="../index.html">网站首页</a></li>
-                <li class="navitem"><a href="../newscenter/xwdt.html">动态消息</a></li>
-                <li class="navitem"><a href="../type/yjfx1.html">研究方向</a></li>
-                <li class="navitem"><a href="../teams/yjtd1.html">研究团队</a></li>
-                <li class="navitem"><a href="../achievments/yjcg.html">研究成果</a></li>
-                <li id="navactive" class="navitem"><a href="jjfa.html">解决方案</a></li>
-                <li class="navitem"><a href="../download/zlxz.html">资料下载</a></li>
-                <li class="navitem"><a href="../about/adout-us.html">关于我们</a></li>
+                <li class="navitem"><a href="../bigdata">网站首页</a></li>
+                <li class="navitem"><a href="../bigdata/newscenter">动态消息</a></li>
+                <li class="navitem"><a href="../bigdata/type">研究方向</a></li>
+                <li class="navitem"><a href="../bigdata/teams">研究团队</a></li>
+                <li class="navitem"><a href="../bigdata/achievments">研究成果</a></li>
+                <li id="navactive" class="navitem"><a href="../bigdata/solution">解决方案</a></li>
+                <li class="navitem"><a href="../bigdata/download">资料下载</a></li>
+                <li class="navitem"><a href="../bigdata/about">关于我们</a></li>
             </ul>
         </div>
     </div>
@@ -98,12 +98,12 @@
     <div class="yjiu_hz">
         <div id="demo-nested" class="cwBox boxHz">
             <ul id="demo-nested-nav">
-                <li><a href="#">四川省智慧国土大数据综合管理平台项目</a></li>
+                <li><a href="#" id="solutionTitle">四川省智慧国土大数据综合管理平台项目</a></li>
             </ul>
             <div class="tabs-container">
                 <div class="tab-nested ctbox">
 
-                    <div class="textbox">
+                    <div class="textbox" id="content">
                         <p align="left">&nbsp; &nbsp; &nbsp;&nbsp;四川省国土资源厅智慧国土大数据综合管理平台项目是围绕解决我省国土资源管理与开发利用过程中存在的重大问题，面向资源监管、共享与服务、智能预警的目标，开展的国土资源信息化大数据平台建设工程。  就是要按照四川省国民经济与社会发展的总体战略部署，在科学发展观的指导下，通过信息技术的广泛应用，使其能够直接、全面、准确地掌握四川省国土资源信息及其动态变化情况，形成上下联动的、科学规范的智慧化国土资源管理模式，克服现行资源管理体制下常规作业方式难以逾越的障碍，切实解决国土资源管理工作中存在的关键性、迫切性问题，全面提升我省国土资源管理与服务水平。四川智慧国土大数据综合管理平台主要建立内容如下：
                             建立软件系统：<br>
                             （1） 四川国土资源目录服务系统<br>
@@ -137,16 +137,16 @@
 <footer>
     <div id="yj_cont">
         <div class="foot_nav">
-            <a href="#" style="padding-left:0px;">网站首页</a>|
-            <a href="../newscenter/xwdt.html">动态消息</a>|
-            <a href="../type/yjfx1.html">研究方向</a>|
-            <a href="../teams/yjtd1.html">研究团队</a>|
-            <a href="../achievments/yjcg.html">研究成果</a>|
-            <a href="../solution/jjfa.html">解决方案</a>|
-            <a href="../download/zlxz.html">资料下载</a>|
-            <a href="about/adout-us.html">关于我们</a>|
-            <a href="../theme/ztcx.html">专题查询</a>|
-            <a href="../job/rczp.html">人才招聘</a>
+            <a href="../bigdata" style="padding-left:0px;">网站首页</a>|
+            <a href="../bigdata/newscenter">动态消息</a>|
+            <a href="../bigdata/direction">研究方向</a>|
+            <a href="../bigdata/teams">研究团队</a>|
+            <a href="../bigdata/achievments">研究成果</a>|
+            <a href="../bigdata/solution">解决方案</a>|
+            <a href="../bigdata/download">资料下载</a>|
+            <a href="../bigdata/about">关于我们</a>|
+            <a href="../bigdata/theme">专题查询</a>|
+            <a href="../bigdata/job">人才招聘</a>
         </div>
         <div class="bott_link">
             <a href="#">隐私条约</a> <a href="#">使用条款</a> <a href="#">反馈</a>
@@ -200,12 +200,29 @@
 <!--导航效果的js END-->
 <!--切换图JS-->
 <script src="../web/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="../web/js/urlParams"></script>
+<script type="text/javascript" src="../web/js/urlParams.js"></script>
 <script type="text/javascript">
 
 
     function getSolution(id) {
-
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : "/bigdata/solution/" + id,
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(data) {
+                if(data.code == 0){
+                    $("#solutionTitle").html(data.solution.solutionTitle);
+                    $("#content").html(data.solution.solutionText);
+                }else {
+                    let li = "<li><a>获取解决方案失败</a></li>";
+                    $("#content").append(li);
+                }
+            }
+        });
     }
 
     $().ready(function () {
@@ -220,7 +237,9 @@
             success : function(data) {
                 if(data.code == 0){
                     for(var i = 0; i < data.results.length; i++){
-                        let li = "<li id=" + data.results[i].sid + "><a href='javascript:;' onclick= " + getSoluction(data.results[i].sid)+ ">" + data.results[i].solutionType + "</li>";
+                        let li = '<li id=' + data.results[i].stid + '><a href="javascript:;" onclick="getSolution(\''
+                            + data.results[i].stid
+                            + '\')" >' + data.results[i].solutionType + '</li>';
                         $("#solutionType").append(li);
                     }
                 }else {
@@ -233,6 +252,9 @@
     var id = getUrlParam("id");
     if(id != null){
         getSolution(id);
+        let t = (id - 1) * 32;
+        let topshift = "top:" + t + "px;";
+        $("#cbnmove").attr("style", topshift);
     }
 </script>
 

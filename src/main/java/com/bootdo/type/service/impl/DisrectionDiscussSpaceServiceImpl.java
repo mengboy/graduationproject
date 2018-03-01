@@ -45,4 +45,9 @@ public class DisrectionDiscussSpaceServiceImpl implements DirectionDiscussSpaceS
     public void upCaseAnalysis(DiscussSpace discussSpace) {
         discussSpaceMapper.updateByPrimaryKeySelective(discussSpace);
     }
+
+    @Override
+    public List<DiscussSpace> getDiscussSpace(Integer rdid) {
+        return discussSpaceMapper.getDiscussSpace(rdid);
+    }
 }

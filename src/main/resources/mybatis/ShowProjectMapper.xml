@@ -29,7 +29,10 @@
   <select id="count" resultType="java.lang.Integer">
     SELECT count(*) FROM show_project
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="getShowProjectByRdID" resultType="com.bootdo.type.domain.ShowProject">
+      SELECT COUNT(*) FROM show_project WHERE rsd_id = #{rdid, jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from show_project
     where spid = #{spid,jdbcType=INTEGER}
   </delete>

@@ -25,4 +25,5 @@ public interface ResearchDirectionMapper {
     int count();
 
     List<ResearchDirection> getDirections();
+
 }

@@ -21,4 +21,6 @@ public interface DiscussSpaceMapper {
     List<DiscussSpace> list(Map<String, Object> map);
 
     int count();
+
+    List<DiscussSpace> getDiscussSpace(Integer rdid);
 }

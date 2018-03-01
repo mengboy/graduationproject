@@ -23,7 +23,10 @@
   <select id="count" resultType="java.lang.Integer">
     SELECT count(*) FROM discuss_space
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="getDiscussSpace" resultType="com.bootdo.type.domain.DiscussSpace">
+      select * from discuss_space WHERE rsd_id = #{rdid, jdbcType=INTEGER};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from discuss_space
     where dsid = #{dsid,jdbcType=INTEGER}
   </delete>

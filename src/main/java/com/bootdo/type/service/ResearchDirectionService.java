@@ -19,4 +19,6 @@ public interface ResearchDirectionService {
     List<ResearchDirection> getDirections();
 
     int count();
+
+    List<ResearchDirection> getAllDirection();
 }

@@ -17,4 +17,6 @@ public interface DirectionDiscussSpaceService {
     int count();
 
     void upCaseAnalysis(DiscussSpace discussSpace);
+
+    List<DiscussSpace> getDiscussSpace(Integer rdid);
 }

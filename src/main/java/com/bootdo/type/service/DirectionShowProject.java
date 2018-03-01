@@ -17,4 +17,6 @@ public interface DirectionShowProject {
     int upShowProject(ShowProject showProject);
 
     int count();
+
+    List<ShowProject> getShowProjectByRdID(Integer rdid);
 }

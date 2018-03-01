@@ -44,4 +44,9 @@ public class DirectionCaseAnalysisImpl implements DirectionCaseAnalysisService {
     public void upCaseAnalysis(CaseAnalysis caseAnalysis) {
         caseAnalysisMapper.updateByPrimaryKeySelective(caseAnalysis);
     }
+
+    @Override
+    public List<CaseAnalysis> getCaseAnalysisByRdID(Integer rdid) {
+        return caseAnalysisMapper.getCaseAnalysisByRdID(rdid);
+    }
 }

@@ -23,6 +23,9 @@
   <select id="count" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM case_analysis
   </select>
+    <select id="getCaseAnalysisByRdID" resultType="com.bootdo.type.domain.CaseAnalysis">
+      SELECT * FROM case_analysis WHERE rsd_id = #{rdid, jdbcType=INTEGER}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from case_analysis

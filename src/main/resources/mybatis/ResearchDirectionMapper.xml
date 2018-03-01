@@ -31,7 +31,8 @@
   <select id="getDirections" resultType="com.bootdo.type.domain.ResearchDirection">
     select * from research_direction
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from research_direction
     where did = #{did,jdbcType=INTEGER}
   </delete>
