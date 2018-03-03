@@ -36,6 +36,10 @@ public class WebDirectionController {
     @Autowired
     DirectionDiscussSpaceService directionDiscussSpaceService;
 
+    /**
+     * 获取研究方向种类
+     * @return
+     */
     @GetMapping("/types")
     @ResponseBody
     Object getDirectionTypes(){
@@ -52,6 +56,11 @@ public class WebDirectionController {
         return R.ok(map);
     }
 
+    /**
+     * 根据id获取研究方向
+     * @param rdid
+     * @return
+     */
     @GetMapping("/{rdid}")
     @ResponseBody
     Object getDirection(@PathVariable("rdid") Integer rdid){
@@ -67,6 +76,12 @@ public class WebDirectionController {
         return R.ok(map);
     }
 
+
+    /**
+     * 获取示例项目
+     * @param rdid
+     * @return
+     */
     @GetMapping("/showProject/{rdid}")
     @ResponseBody
     Object getShowProject(@PathVariable("rdid") Integer rdid){
@@ -83,6 +98,11 @@ public class WebDirectionController {
         return R.ok(map);
     }
 
+    /**
+     * 获取案例分析
+     * @param rdid
+     * @return
+     */
     @GetMapping("/CaseAnalysis/{rdid}")
     @ResponseBody
     Object getCaseAnalysis(@PathVariable("rdid") Integer rdid){
@@ -94,11 +114,16 @@ public class WebDirectionController {
             return R.error();
         }
         Map<String, Object> map = new HashMap<>();
-
+        map.put("results", caseAnalysisList);
         return R.ok(map);
 
     }
 
+    /**
+     * 获取交流空间
+     * @param rdid
+     * @return
+     */
     @GetMapping("/discussSpace/{rdid}")
     @ResponseBody
     Object getDiscussSpace(@PathVariable("rdid") Integer rdid){
@@ -111,6 +136,7 @@ public class WebDirectionController {
         }
         Map<String, Object> map = new HashMap<>();
 
+        map.put("results", discussSpaceList);
         return R.ok(map);
     }
 
