@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.TeamRepresentativeMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.TeamRepresentative" >
+    <id column="trid" property="trid" jdbcType="INTEGER" />
+    <result column="represen_avatar" property="represenAvatar" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="direction" property="direction" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="info_url" property="infoUrl" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trid, represen_avatar, info, direction, name, info_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from team_representative
+    where trid = #{trid,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.bootdo.type.domain.TeamRepresentative">
+      SELECT * FROM team_representative WHERE 1=1
+      <if test="offset != null">
+        limit #{offset}, #{limit}
+      </if>
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(trid) FROM team_representative
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from team_representative
+    where trid = #{trid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.TeamRepresentative" useGeneratedKeys="true" keyProperty="trid">
+    insert into team_representative (trid, represen_avatar, info,
+      direction, name, info_url)
+    values (#{trid,jdbcType=INTEGER}, #{represenAvatar,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR},
+      #{direction,jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{infoUrl, jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.TeamRepresentative" >
+    insert into team_representative
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trid != null" >
+        trid,
+      </if>
+      <if test="represenAvatar != null" >
+        represen_avatar,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="direction != null" >
+        direction,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="infoUrl != null">
+        info_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trid != null" >
+        #{trid,jdbcType=INTEGER},
+      </if>
+      <if test="represenAvatar != null" >
+        #{represenAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null" >
+        #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name, jdbcType=VARCHAR},
+      </if>
+      <if test="infoUrl != null">
+        #{infoUrl, jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.TeamRepresentative" >
+    update team_representative
+    <set >
+      <if test="represenAvatar != null" >
+        represen_avatar = #{represenAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null" >
+        direction = #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name, jdbcType=VARCHAR},
+      </if>
+      <if test="infoUrl != null">
+        info_url = #{infoUrl, jdbcType=VARCHAR}
+      </if>
+    </set>
+    where trid = #{trid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.TeamRepresentative" >
+    update team_representative
+    set represen_avatar = #{represenAvatar,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      direction = #{direction,jdbcType=VARCHAR}
+      name = #{name, jdbcType=VARCHAR}
+      info_url =  #{infoUrl, jdbcType=VARCHAR}
+    where trid = #{trid,jdbcType=INTEGER}
+  </update>
+</mapper>

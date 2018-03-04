@@ -83,11 +83,8 @@
     <div class="left_box" id="spleft">
         <div class="lanmu_title">研究团队</div>
         <div id="lanmu_list">
-            <ul>
-                <li id="cbnavactive" ><a href="yjtd1.html" title="说明">大数据、云计算及智能技术团队</a></li>
-                <li  ><a href="yjtd2.html" title="说明">机器人与智能系统团队</a></li>
-                <li  ><a href="yjtd3.html" title="说明">地理信息系统、虚拟地理环境领域团队</a></li>
-                <li  ><a href="yjtd4.html" title="新增智慧环保">政策、制度、法律法规领域团队</a></li>
+            <ul id="teamTitle">
+                <input type="text" value="" style="display: none" id="checkedTid">
                 <li id="cbnmove"><img src="../web/images/lmbg.jpg"
                                       width="228" height="32" />
                 </li>
@@ -105,45 +102,32 @@
             <div class="tabs-container">
                 <div class="tab-nested ctbox">
                     <br>
-                    <P>“大数据、云计算及智能技术方向”有教师15人（含教授5人、副教授4人、讲师6人）、博士研究生26人（含留学生11人）、硕士研究生80余人（含留学生3人）。</P>
+                    <div id="tInfo">
+
+                    </div>
                 </div>
                 <div class="tab-nested">
                     <br>
-                    <ul>
-                        <li style="height: 180px;"><a href="#">
-                            <img src="../web/td/ccit_1490513037847_big.jpg" class="img-responsive" alt="" style="width: 100px; float: left; padding-left: 15px;"></a>
-                            <div class="event_box_caption" style="float: left;width: 310px;">
-                                <p> &nbsp; &nbsp; &nbsp;&nbsp;李天瑞， 博士，副教授，硕士生导师<br>
-                                    &nbsp; &nbsp; &nbsp;&nbsp;四川省云计算与智能技术重点实验室主任<br>
-                                    &nbsp; &nbsp; &nbsp;&nbsp;云计算首席专家
-                                </p>
-                            </div>
-                            <div class="event_box_caption" style="float: left; width: 180px;">
-                                <p>&nbsp; &nbsp;研究方向：<br>
-                                    &nbsp; &nbsp; 数据挖掘与知识发现<br>
-                                    &nbsp; &nbsp; 云计算与大数据<br>
-                                    &nbsp; &nbsp; 粒计算与粗糙集<br>
-                                </p>
-                            </div>
-                        </li>
-                        <li style="height: 180px;"><a href="http://userweb.swjtu.edu.cn/Userweb/jhuang/index.htm">
-                            <img src="../web/td/huangjin.jpg" class="img-responsive" alt="" style="width: 100px;float: left;padding-left: 15px"></a>
-                            <div class="event_box_caption" style="float: left;width: 310px;">
-                                <p> &nbsp; &nbsp; &nbsp;&nbsp;黄进， 博士，副教授，硕士生导师<br>
-                                    &nbsp; &nbsp; &nbsp;&nbsp;西南交通大学中国土地信息大数据研究院执行院长<br>
-                                    &nbsp; &nbsp; &nbsp;&nbsp;硕士毕业于西南交通大学计算机应用技术专业<br>
-                                    &nbsp; &nbsp; &nbsp;&nbsp;博士毕业于西南交通大学交通信息工程与控制专业<br>
-                                </p>
-                            </div>
-                            <div class="event_box_caption" style="float: left;width: 180px">
-                                <p>&nbsp; &nbsp; 研究方向：<br>
-                                    &nbsp; &nbsp; 图像处理与计算机视觉<br>
-                                    &nbsp; &nbsp; 大数据与数据挖掘<br>
-                                    &nbsp; &nbsp; 云计算与计算智能<br>
-                                    &nbsp; &nbsp; 模式识别与智能信息处理<br>
-                                </p>
-                            </div>
-                        </li>
+                    <ul id="teamRepresentatives">
+
+                        <!--<li style="height: 180px;"><a href="http://userweb.swjtu.edu.cn/Userweb/jhuang/index.htm">-->
+                        <!--<img src="../web/td/huangjin.jpg" class="img-responsive" alt="" style="width: 100px;float: left;padding-left: 15px"></a>-->
+                        <!--<div class="event_box_caption" style="float: left;width: 310px;">-->
+                        <!--<p> &nbsp; &nbsp; &nbsp;&nbsp;黄进， 博士，副教授，硕士生导师<br>-->
+                        <!--&nbsp; &nbsp; &nbsp;&nbsp;西南交通大学中国土地信息大数据研究院执行院长<br>-->
+                        <!--&nbsp; &nbsp; &nbsp;&nbsp;硕士毕业于西南交通大学计算机应用技术专业<br>-->
+                        <!--&nbsp; &nbsp; &nbsp;&nbsp;博士毕业于西南交通大学交通信息工程与控制专业<br>-->
+                        <!--</p>-->
+                        <!--</div>-->
+                        <!--<div class="event_box_caption" style="float: left;width: 180px">-->
+                        <!--<p>&nbsp; &nbsp; 研究方向：<br>-->
+                        <!--&nbsp; &nbsp; 图像处理与计算机视觉<br>-->
+                        <!--&nbsp; &nbsp; 大数据与数据挖掘<br>-->
+                        <!--&nbsp; &nbsp; 云计算与计算智能<br>-->
+                        <!--&nbsp; &nbsp; 模式识别与智能信息处理<br>-->
+                        <!--</p>-->
+                        <!--</div>-->
+                        <!--</li>-->
                     </ul>
                 </div>
             </div>
@@ -223,23 +207,127 @@
     <!--导航效果的js END-->
     <!--切换图JS-->
     <script src="../web/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+
+        // <li id="cbnavactive" ><a href="yjtd1.html" title="说明">大数据、云计算及智能技术团队</a></li>
+        // <li  ><a href="yjtd2.html" title="说明">机器人与智能系统团队</a></li>
+        // <li  ><a href="yjtd3.html" title="说明">地理信息系统、虚拟地理环境领域团队</a></li>
+        // <li  ><a href="yjtd4.html" title="新增智慧环保">政策、制度、法律法规领域团队</a></li>
+
+        //团队切换
+        function teamChange(id) {
+            $("#checkedTid").val(id);
+            getTeam(id);
+            getTeamRe(id);
+        }
+
+
+        // <li style="height: 180px;"><a href="#">
+        //     <img src="../web/td/ccit_1490513037847_big.jpg" class="img-responsive" alt="" style="width: 100px; float: left; padding-left: 15px;"></a>
+        //     <div class="event_box_caption" style="float: left;width: 310px;">
+        //     <p> &nbsp; &nbsp; &nbsp;&nbsp;李天瑞， 博士，副教授，硕士生导师<br>
+        // &nbsp; &nbsp; &nbsp;&nbsp;四川省云计算与智能技术重点实验室主任<br>
+        // &nbsp; &nbsp; &nbsp;&nbsp;云计算首席专家
+        // </p>
+        // </div>
+        // <div class="event_box_caption" style="float: left; width: 180px;">
+        //     <p>&nbsp; &nbsp;研究方向：<br>
+        // &nbsp; &nbsp; 数据挖掘与知识发现<br>
+        // &nbsp; &nbsp; 云计算与大数据<br>
+        // &nbsp; &nbsp; 粒计算与粗糙集<br>
+        // </p>
+        // </div>
+        // </li>
+        function getTeamRe(id) {
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url : "/bigdata/team/teamRepresentatives",
+                data: {
+                    "tid": id
+                },
+                async : false,
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if(data.code == 0){
+                        $("#teamRepresentatives").empty();
+                        for(var i = 0; i < data.results.length; i++){
+                            let li = "<li style='height: 180px;'><a href='" + data.results[i].infoUrl+ "'>"
+                                + "<img class='img-responsive' style='width: 100px; float: left; padding-left: 15px;' src='" + "http://localhost:8080/" + data.results[i].represenAvatar + "'></a>"
+                                + "<div class='event_box_caption' style='float: left;width: 310px;'>"
+                                + "<div style='padding-left: 20px'>" + data.results[i].info + "</div>" +"</div>"
+                                + "<div class='event_box_caption' style='float: left; width: 180px;'>研究方向: <br>" + data.results[i].direction + "</div>" +"</li>"
+                            $("#teamRepresentatives").append(li);
+                        }
+                    }else {
+                        let li = "<li><a>获取团队代表失败</a></li>";
+                        $("#teamRepresentatives").append(li);
+                    }
+                }
+            });
+        }
+
+        /**
+         * 获取团队具体信息
+         */
+        function getTeam(id) {
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url : "/bigdata/team/team",
+                data: {
+                    "tid": id
+                },
+                async : false,
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if(data.code == 0){
+                        $("#tInfo").empty();
+                        $("#tInfo").append(data.team.pInfo);
+                    }else {
+                        let li = "<li><a>获取研究团队简介失败</a></li>";
+                        $("#tInfo").append(li);
+                    }
+                }
+            });
+        }
+        $().ready(function () {
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : "/bigdata/team/teams",
+                async : false,
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if(data.code == 0){
+                        for(var i = 0; i < data.results.length; i++){
+                            let li = '<li id=' + data.results[i].tid + '><a href="javascript:;" onclick="teamChange(\''
+                                + data.results[i].tid
+                                + '\')" >' + data.results[i].name + '</li>';
+                            $("#teamTitle").append(li);
+                        }
+                        getTeam(data.results[0].tid);
+                        getTeamRe(data.results[0].tid);
+                        $("#checkedTid").val(data.results[0].tid);
+                    }else {
+                        let li = "<li><a>研究团队失败</a></li>";
+                        $("#teamTitle").append(li);
+                    }
+                }
+            });
+        });
+
+    </script>
+
     <script type="text/javascript" src="../web/js/banner.slide.jquery.js"></script>
     <!--导航切换和回到顶部JS-->
     <script src="../web/js/back_top.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        function requestContent(name,type,uriType){
-            var url="/wrisc/"+type+"/"+uriType;
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType:"html",
-                cache: false,
-                success: function(html){
-                    $("#"+name).html(html);
-                }
-            });
-        }
-    </script>
 </body>
 </html>

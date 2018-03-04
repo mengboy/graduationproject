@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<!--<div class="wrapper wrapper-content animated fadeInRight">-->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="col-sm-12">
+                    <h4>添加团队代表</h4>
+                </div>
+                <form class="form-horizontal m-t" id="signupForm">
+                    <input id="trid" name="trid" type="hidden">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">姓名：</label>
+                        <div class="col-sm-4">
+                            <input id="name" name="name" class="form-control" type="text" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">头像：</label>
+                        <div class="col-sm-4">
+                            <input id="lefile" type="file" style="display:none">
+                            <div class="input-append">
+                                <input id="photoCover" class="input-large" type="text" style="height:30px;">
+                                <span class="btn" onclick="$('input[id=lefile]').click();">点击上传头像</span>
+                            </div>
+                        </div>
+                        <input id="represenAvatar" type="text" name="represenAvatar" style="display: none">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">主页：</label>
+                        <div class="col-sm-11">
+                            <div class="ibox-content no-padding">
+                                <input type="text" name="infoUrl" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">简介：</label>
+                        <div class="col-sm-11">
+                            <div class="ibox-content no-padding">
+                                <textarea name="info" class="form-control" id="info"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">研究方向：</label>
+                        <div class="col-sm-11">
+                            <div class="ibox-content no-padding">
+                                <textarea name="direction" class="form-control" id="searchDirection"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">所属团队：</label>
+                        <div class="col-sm-8 control-label" id="team" style="text-align: left">
+                            <input id="checkedTeams" name="teams" style="display: none">
+                        </div>
+
+                    </div>
+                    <div class="text-right form-group">
+                        <a class="btn btn-default waves-effect waves-light"
+                           onclick="returnList()">返回列表</a>
+                        <button type="button"
+                                class="btn btn-primary waves-effect waves-light"
+                                onclick="save()">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+</div>
+<div th:include="include::footer"></div>
+
+<script>
+    $('input[id=lefile]').change(function() {
+        $('#photoCover').val($(this).val());
+        var formData = new FormData();
+        var img = $('#lefile')[0].files[0];
+        formData.append("img", img);
+        $.ajax({
+            cache : false,
+            type : "POST",
+            url : "/blog/bContent/upImage",
+            data :formData,
+            async : false,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(r) {
+                if (r.code == 0) {
+                    $("#represenAvatar").val(r.url);
+                } else {
+                    alert(r.msg)
+                }
+
+            }
+        });
+    });
+
+    $().ready(function () {
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : "/type/team/all",
+            data: "",
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(r) {
+                if (r.code == 0) {
+                    for(var i = 0; i < r.results.length; i++){
+                        var lable = "<div><lable class='checkbox-inline control-label'><input type='checkbox' value='" + r.results[i].tid
+                            + "'>" + r.results[i].name
+                            + " </lable>"
+                            + "<label class='checkbox-inline control-label' style='display: none' id='" + r.results[i].tid + "'> 排序：<input name='" + r.results[i].tid + "' type='text' value='' > </label></div>";
+                        $("#team").append(lable);
+                    }
+                } else {
+                    alert(r.msg);
+                }
+
+            }
+        });
+    });
+
+    $("#team").on('click', 'input:checkbox', function(){
+        var id = $(this).val();//获取当前点击button的id
+        if ($(this).is(":checked")) {
+            $("#" +id+ "").show();
+        }else {
+            $("#" +id+ "").hide();
+        }
+
+    });
+
+
+    function save() {
+        var teams = "";
+        $('input[type="checkbox"]').each(function() {
+            if ($(this).is(":checked")) {
+                var teamId = $(this).val();
+                teams += teamId + ":" + $("input[name='" + teamId + "']").val();
+                teams += " ";
+            }
+        });
+
+        $("#checkedTeams").val(teams);
+
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : "/type/teamRepresentative/save",
+            data : $('#signupForm').serialize(),// 你的formid
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(r) {
+                if (r.code == 0) {
+                    parent.layer.msg(r.msg);
+                    parent.reLoad();
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+
+                } else {
+                    parent.layer.alert(r.msg)
+                }
+
+            }
+        });
+
+
+    }
+
+</script>
+
+</body>
+</html>

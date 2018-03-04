@@ -1105,7 +1105,7 @@ CREATE TABLE our_info(
 # 资料下载
 DROP TABLE if EXISTS `data_download`;
 CREATE TABLE data_download(
-  id INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  ddid INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   data_dec VARCHAR(500),
   down_url VARCHAR(250),
   publish_time DATETIME NOT NULL DEFAULT NOW()
@@ -1115,7 +1115,7 @@ CREATE TABLE data_download(
 # 研究团队
 DROP TABLE IF EXISTS `team`;
 CREATE TABLE team(
-  id INT(20) PRIMARY KEY AUTO_INCREMENT,
+  tid INT(20) PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(50) COMMENT '团队名称',
   p_info text COMMENT '团队介绍'
 );
@@ -1123,7 +1123,8 @@ CREATE TABLE team(
 # 团队代表
 DROP  TABLE IF EXISTS `team_representative`;
 CREATE TABLE team_representative(
-  id INT(20) PRIMARY KEY AUTO_INCREMENT,
+  trid INT(20) PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(50),
   represen_avatar VARCHAR(100) COMMENT '头像url',
   info VARCHAR(500) COMMENT '个人信息',
   direction VARCHAR(500) COMMENT '研究方向'
@@ -1132,9 +1133,10 @@ CREATE TABLE team_representative(
 # 团队代表和团队关系表
 DROP TABLE IF EXISTS `re_team_representative`;
 CREATE TABLE re_team_representative(
+  rtrid INT(20) PRIMARY KEY AUTO_INCREMENT,
   t_id INT (20),
+  order_by INT(20),
   represent_id INT(20)
-
 );
 
 # 研究方向

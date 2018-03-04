@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.TeamMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Team" >
+    <id column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.Team" extends="BaseResultMap" >
+    <result column="p_info" property="pInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, name
+  </sql>
+  <sql id="Blob_Column_List" >
+    p_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from team
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <select id="teams" resultType="com.bootdo.type.domain.Team">
+    SELECT * FROM team WHERE 1 = 1
+    <if test="offset != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM team
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from team
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.Team" >
+    insert into team (tid, name, p_info
+      )
+    values (#{tid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Team" >
+    insert into team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pInfo != null" >
+        p_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pInfo != null" >
+        #{pInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Team" >
+    update team
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pInfo != null" >
+        p_info = #{pInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.Team" >
+    update team
+    set name = #{name,jdbcType=VARCHAR},
+      p_info = #{pInfo,jdbcType=LONGVARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Team" >
+    update team
+    set name = #{name,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

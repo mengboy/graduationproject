@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.DataDownloadMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.DataDownload" >
+    <id column="ddid" property="ddid" jdbcType="INTEGER" />
+    <result column="data_dec" property="dataDec" jdbcType="VARCHAR" />
+    <result column="down_url" property="downUrl" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ddid, data_dec, down_url, publish_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_download
+    where ddid = #{ddid,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.bootdo.type.domain.DataDownload">
+      SELECT * FROM data_download WHERE 1 = 1
+      <if test="offset != null">
+        limit #{offset}, #{limit}
+      </if>
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from data_download;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from data_download
+    where ddid = #{ddid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.DataDownload" >
+    insert into data_download (ddid, data_dec, down_url,
+      publish_time)
+    values (#{ddid,jdbcType=INTEGER}, #{dataDec,jdbcType=VARCHAR}, #{downUrl,jdbcType=VARCHAR},
+      #{publishTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.DataDownload" >
+    insert into data_download
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ddid != null" >
+        ddid,
+      </if>
+      <if test="dataDec != null" >
+        data_dec,
+      </if>
+      <if test="downUrl != null" >
+        down_url,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ddid != null" >
+        #{ddid,jdbcType=INTEGER},
+      </if>
+      <if test="dataDec != null" >
+        #{dataDec,jdbcType=VARCHAR},
+      </if>
+      <if test="downUrl != null" >
+        #{downUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.DataDownload" >
+    update data_download
+    <set >
+      <if test="dataDec != null" >
+        data_dec = #{dataDec,jdbcType=VARCHAR},
+      </if>
+      <if test="downUrl != null" >
+        down_url = #{downUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ddid = #{ddid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.DataDownload" >
+    update data_download
+    set data_dec = #{dataDec,jdbcType=VARCHAR},
+      down_url = #{downUrl,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP}
+    where ddid = #{ddid,jdbcType=INTEGER}
+  </update>
+</mapper>
