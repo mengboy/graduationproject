@@ -95,10 +95,10 @@
                     <!--<p>地址：四川省成都市金牛区二环路北一段111号/成都市犀安路999号</p>-->
                     <!--<p>电话：027-66367729</p>-->
                     <!---->
-                        <!--Zip code  <br />-->
-                        <!--610031-->
-                        <!--WORK TIME <br />-->
-                        <!--AM 9:00-PM 6:00-->
+                    <!--Zip code  <br />-->
+                    <!--610031-->
+                    <!--WORK TIME <br />-->
+                    <!--AM 9:00-PM 6:00-->
                     <!--</p>-->
                 </div>
             </div>
@@ -193,7 +193,7 @@
                 },
                 success : function(r) {
                     if (r.code == 0) {
-                        $("#desrc").html(r.about.desrc);
+                        $("#desrc").append(r.about.desrc.replace("\r\n", "<br>"));
                         var contactInfo = "<p>" +"地址: "  + r.about.address+ "</p>"
                             + "<p>" + "电话: " + r.about.phone + "</p>"
                             + "<p>" +"zipCode: " + r.about.zipCode + "</p>"
