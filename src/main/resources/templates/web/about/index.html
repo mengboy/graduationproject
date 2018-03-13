@@ -88,18 +88,18 @@
             <div class="tabs-container">
                 <div class="tab-nested ctbox">
                     <br>
-                    <P>西南交通大学中国土地信息大数据研究院是西南交通大学下设的二级科学研究机构，以科学技术发展研究院为主管部门，由信息科学与技术学院、电气工程学院、地球科学与环境工程学院联合共建。<br>
-                        研究院依托西南交通大学雄厚的人才资源和科研实力，整合计算机科学与技术、信息与通信工程、控制科学与工程、测绘科学与技术、地质资源与地质工程、电气工程等学科优势，以土地信息大数据为研究对象，以促进土地信息的智慧化为根本目标，致力于大数据、云计算、物联网、人工智能等领域的科学研究、人才培养、技术创新和社会服务。
+                    <P id="desrc">
                     </P>
                 </div>
-                <div class="tab-nested">
-                    <p>地址：四川省成都市金牛区二环路北一段111号/成都市犀安路999号<br />
-                        电话：027-66367729
-                        Zip code  <br />
-                        610031
-                        WORK TIME <br />
-                        AM 9:00-PM 6:00
-                    </p>
+                <div class="tab-nested" id="contactInfo">
+                    <!--<p>地址：四川省成都市金牛区二环路北一段111号/成都市犀安路999号</p>-->
+                    <!--<p>电话：027-66367729</p>-->
+                    <!---->
+                        <!--Zip code  <br />-->
+                        <!--610031-->
+                        <!--WORK TIME <br />-->
+                        <!--AM 9:00-PM 6:00-->
+                    <!--</p>-->
                 </div>
             </div>
         </div>
@@ -180,23 +180,36 @@
     <!--导航效果的js END-->
     <!--切换图JS-->
     <script src="../web/js/jquery-1.7.2.min.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function () {
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : "/bigdata/getAbout",
+                async : false,
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(r) {
+                    if (r.code == 0) {
+                        $("#desrc").html(r.about.desrc);
+                        var contactInfo = "<p>" +"地址: "  + r.about.address+ "</p>"
+                            + "<p>" + "电话: " + r.about.phone + "</p>"
+                            + "<p>" +"zipCode: " + r.about.zipCode + "</p>"
+                            + "<p>" + "WORK TIME: " +  r.about.workTime + "</p>";
+                        $("#contactInfo").append(contactInfo);
+                    } else {
+                        parent.layer.alert(r.msg)
+                    }
+
+                }
+            });
+        });
+    </script>
+
     <script type="text/javascript" src="../web/js/banner.slide.jquery.js"></script>
     <!--导航切换和回到顶部JS-->
     <script src="../web/js/back_top.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        function requestContent(name,type,uriType){
-            var url="/wrisc/"+type+"/"+uriType;
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType:"html",
-                cache: false,
-                success: function(html){
-                    $("#"+name).html(html);
-                }
-            });
-        }
-    </script>
 </body>
 </html>

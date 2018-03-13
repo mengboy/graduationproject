@@ -1,4 +1,4 @@
-package com.bootdo.type.controller;
+package com.bootdo.web.about;
 
 
 import com.bootdo.common.utils.R;
@@ -14,34 +14,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/about")
-public class AboutController {
+@RequestMapping("/bigdata")
+public class WebAboutController {
 
     @Autowired
     AboutService aboutService;
 
-    @GetMapping("")
-    String mainPage(){
-        return "type/about/about";
-    }
-
-
-    @RequestMapping("/save")
+    @GetMapping("/getAbout")
     @ResponseBody
-    Object save(About about){
-        if(about.getId() != null){
-            aboutService.update(about);
-        }else {
-            aboutService.saveAbout(about);
-        }
-        return R.ok();
-    }
-
-    @RequestMapping("/select")
-    @ResponseBody
-    Object select(){
+    Object getAbout(){
+        About about = aboutService.getAbout();
         Map<String, Object> map = new HashMap<>();
-        map.put("about", aboutService.getAbout());
+        map.put("about", about);
         return R.ok(map);
     }
 

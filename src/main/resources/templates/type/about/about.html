@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<!--<div class="wrapper wrapper-content animated fadeInRight">-->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="col-sm-12">
+                    <h4>关于我们</h4>
+                </div>
+                <form class="form-horizontal m-t" id="signupForm">
+                    <input id="id" name="id" type="hidden">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">简介：</label>
+                        <div class="col-sm-6">
+                            <textarea style="height: 200px" id="desrc" name="desrc" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-1 control-label">地址：</label>
+                        <div class="col-sm-6">
+                            <input  id="address" name="address" class="form-control" type="text">
+                        </div>
+
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-1 control-label">电话：</label>
+                        <div class="col-sm-6">
+                            <input id="phone" name="phone" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">邮编：</label>
+                        <div class="col-sm-6">
+                            <input id="zipCode" name="zipCode" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-sm-1 control-label">工时：</label>
+                        <div class="col-sm-6">
+                            <input id="workTime" name="workTime" class="form-control" type="text">
+                        </div>
+                    </div>
+
+
+                    <div class="text-center form-group">
+                        <button type="button"
+                                class="btn btn-primary waves-effect waves-light"
+                                onclick="edit()">编辑</button>
+
+                        <button type="button"
+                                class="btn btn-primary waves-effect waves-light"
+                                onclick="save()">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+</div>
+<div th:include="include::footer"></div>
+
+
+<script>
+    function save() {
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : "/about/save",
+            data : $('#signupForm').serialize(),// 你的formid
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(r) {
+                if (r.code == 0) {
+                    parent.layer.msg(r.msg);
+                    $('input').attr("readonly","readonly");
+                    $("#desrc").attr("readonly", "readonly");
+                } else {
+                    parent.layer.alert(r.msg)
+                }
+
+            }
+        });
+    }
+
+    function edit() {
+        $('input').removeAttrs("readonly","readonly");
+        $("#desrc").removeAttrs("readonly", "readonly");
+    }
+
+    $().ready(function () {
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : "/about/select",
+            async : false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(r) {
+                if (r.code == 0) {
+                    $("#desrc").html(r.about.desrc);
+                    $("#address").val(r.about.address);
+                    $("#phone").val(r.about.phone);
+                    $("#zipCode").val(r.about.zipCode);
+                    $("#workTime").val(r.about.workTime);
+                    $("#id").val(r.about.id);
+                    $('input').attr("readonly","readonly");
+                    $("#desrc").attr("readonly", "readonly");
+                } else {
+                    parent.layer.alert(r.msg)
+                }
+
+            }
+        });
+    })
+</script>
+
+</body>
+</html>
