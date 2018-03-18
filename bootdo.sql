@@ -458,3 +458,19 @@ COMMIT;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
+
+
+create TABLE  `job_type`(
+  jt_id int(20) PRIMARY key AUTO_INCREMENT,
+  jt_name VARCHAR(20) DEFAULT NULL,
+  jt_desc text DEFAULT null
+);
+
+create TABLE `position`(
+  p_id int(20) PRIMARY key AUTO_INCREMENT,
+  p_name VARCHAR(20) NOT NULL,
+  jt_id int(20),
+  p_desc text,
+  p_work_place VARCHAR(20)
+);
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.JobTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.JobType" >
+    <id column="jt_id" property="jtId" jdbcType="INTEGER" />
+    <result column="jt_name" property="jtName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.JobType" extends="BaseResultMap" >
+    <result column="jt_desc" property="jtDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jt_id, jt_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    jt_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_type
+    where jt_id = #{jtId,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.bootdo.type.domain.JobType">
+      SELECT * FROM job_type WHERE 1 = 1
+      <if test="offset != null">
+        limit #{offset}, #{limit}
+      </if>
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM job_type
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job_type
+    where jt_id = #{jtId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.JobType" >
+    insert into job_type (jt_id, jt_name, jt_desc
+      )
+    values (#{jtId,jdbcType=INTEGER}, #{jtName,jdbcType=VARCHAR}, #{jtDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.JobType" >
+    insert into job_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jtId != null" >
+        jt_id,
+      </if>
+      <if test="jtName != null" >
+        jt_name,
+      </if>
+      <if test="jtDesc != null" >
+        jt_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jtId != null" >
+        #{jtId,jdbcType=INTEGER},
+      </if>
+      <if test="jtName != null" >
+        #{jtName,jdbcType=VARCHAR},
+      </if>
+      <if test="jtDesc != null" >
+        #{jtDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.JobType" >
+    update job_type
+    <set >
+      <if test="jtName != null" >
+        jt_name = #{jtName,jdbcType=VARCHAR},
+      </if>
+      <if test="jtDesc != null" >
+        jt_desc = #{jtDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where jt_id = #{jtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.JobType" >
+    update job_type
+    set jt_name = #{jtName,jdbcType=VARCHAR},
+      jt_desc = #{jtDesc,jdbcType=LONGVARCHAR}
+    where jt_id = #{jtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.JobType" >
+    update job_type
+    set jt_name = #{jtName,jdbcType=VARCHAR}
+    where jt_id = #{jtId,jdbcType=INTEGER}
+  </update>
+</mapper>

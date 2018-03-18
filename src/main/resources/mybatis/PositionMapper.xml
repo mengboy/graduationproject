@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.PositionMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Position" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="jt_id" property="jtId" jdbcType="INTEGER" />
+    <result column="p_work_place" property="pWorkPlace" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="DATE"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.Position" extends="BaseResultMap" >
+    <result column="p_desc" property="pDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, p_name, jt_id, p_work_place, create_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    p_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from position
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.bootdo.type.domain.Position">
+      select * from position WHERE 1 = 1
+      <if test="offset != null">
+        limit #{offset}, #{limit}
+      </if>
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM position
+  </select>
+  
+  <select id="getWorkPlaces" resultType="java.lang.String">
+    SELECT p_work_place FROM position GROUP BY p_work_place
+  </select>
+  <select id="getPositionByPlace" resultType="com.bootdo.type.domain.Position">
+    select * from position WHERE p_work_place = #{workPlace};
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from position
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.Position" >
+    insert into position (p_id, p_name, jt_id, 
+      p_work_place, p_desc, create_date)
+    values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{jtId,jdbcType=INTEGER}, 
+      #{pWorkPlace,jdbcType=VARCHAR}, #{pDesc,jdbcType=LONGVARCHAR}, #{createDate, jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Position" >
+    insert into position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="jtId != null" >
+        jt_id,
+      </if>
+      <if test="pWorkPlace != null" >
+        p_work_place,
+      </if>
+      <if test="pDesc != null" >
+        p_desc,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="jtId != null" >
+        #{jtId,jdbcType=INTEGER},
+      </if>
+      <if test="pWorkPlace != null" >
+        #{pWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null" >
+        #{pDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate, jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Position" >
+    update position
+    <set >
+      <if test="pName != null" >
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="jtId != null" >
+        jt_id = #{jtId,jdbcType=INTEGER},
+      </if>
+      <if test="pWorkPlace != null" >
+        p_work_place = #{pWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null" >
+        p_desc = #{pDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate, jdbcType=DATE},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.Position" >
+    update position
+    set p_name = #{pName,jdbcType=VARCHAR},
+      jt_id = #{jtId,jdbcType=INTEGER},
+      p_work_place = #{pWorkPlace,jdbcType=VARCHAR},
+      p_desc = #{pDesc,jdbcType=LONGVARCHAR},
+      create_date = #{createDate, jdbcType=DATE}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Position" >
+    update position
+    set p_name = #{pName,jdbcType=VARCHAR},
+      jt_id = #{jtId,jdbcType=INTEGER},
+      p_work_place = #{pWorkPlace,jdbcType=VARCHAR},
+      create_date = #{createDate, jdbcType=DATE}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>
