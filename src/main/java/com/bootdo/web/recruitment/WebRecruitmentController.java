@@ -9,6 +9,7 @@ import com.bootdo.type.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -43,15 +44,18 @@ public class WebRecruitmentController {
 
     @RequestMapping("/getPositionGroupByPlace")
     @ResponseBody
-    Object getPositionByPlace(){
+    Object getPositionByPlace(@RequestParam Integer typeId){
         List<Position> positions = null;
         List<String> workPlaces = null;
         Map<String, Object> positionsOfworkPlace = new HashMap<>();
         try{
-            workPlaces = positionService.getWorkPlaces();
+            workPlaces = positionService.getWorkPlaces(typeId);
             if(workPlaces != null){
                 for(String wordPlace : workPlaces){
-                    positions = positionService.getPositionByPlace(wordPlace);
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("workPlace", wordPlace);
+                    params.put("typeId", typeId);
+                    positions = positionService.getPositionByPlace(params);
                     positionsOfworkPlace.put(wordPlace, positions);
                 }
             }

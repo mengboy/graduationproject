@@ -20,7 +20,7 @@ public interface PositionService {
 
     Position getPosition(Integer pId);
 
-    List<Position> getPositionByPlace(String workPlace);
+    List<Position> getPositionByPlace(Map<String, Object> map);
 
-    List<String> getWorkPlaces();
+    List<String> getWorkPlaces(Integer typeId);
 }

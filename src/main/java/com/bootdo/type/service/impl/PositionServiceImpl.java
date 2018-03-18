@@ -47,14 +47,16 @@ public class PositionServiceImpl implements PositionService{
         return positionMapper.selectByPrimaryKey(pId);
     }
 
+
+
     @Override
-    public List<Position> getPositionByPlace(String workPlace) {
-        return positionMapper.getPositionByPlace(workPlace);
+    public List<Position> getPositionByPlace(Map<String, Object> map) {
+        return positionMapper.getPositionByPlace(map);
     }
 
 
     @Override
-    public List<String> getWorkPlaces() {
-        return positionMapper.getWorkPlaces();
+    public List<String> getWorkPlaces(Integer typeId) {
+        return positionMapper.getWorkPlaces(typeId);
     }
 }

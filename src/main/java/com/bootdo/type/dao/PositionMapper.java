@@ -24,7 +24,7 @@ public interface PositionMapper {
 
     int count();
 
-    List<Position> getPositionByPlace(String workPlace);
+    List<Position> getPositionByPlace(Map<String, Object> map);
 
-    List<String> getWorkPlaces();
+    List<String> getWorkPlaces(Integer typeId);
 }

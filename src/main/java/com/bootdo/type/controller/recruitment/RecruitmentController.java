@@ -73,9 +73,9 @@ public class RecruitmentController {
     }
 
 
-    @RequestMapping("/listType")
+    @RequestMapping("/listTypePage")
     @ResponseBody
-    Object listType(@RequestParam Map<String, Object> params){
+    Object listTypePage(@RequestParam Map<String, Object> params){
         Query query = new Query(params);
         List<JobType> jobTypes = null;
         try{
@@ -91,6 +91,21 @@ public class RecruitmentController {
         }
         int total = jobTypeService.count();
         return new PageUtils(jobTypes, total);
+    }
+
+    @RequestMapping("/listTypes")
+    @ResponseBody
+    Object listTypes(){
+        List<JobType> jobTypes = null;
+        try{
+            jobTypes = jobTypeService.listJobType(new HashMap<>());
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error();
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("results", jobTypes);
+        return R.ok(map);
     }
 
     @RequestMapping("/savePosition")

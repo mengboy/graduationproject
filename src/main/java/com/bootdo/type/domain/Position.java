@@ -1,6 +1,6 @@
 package com.bootdo.type.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Position {
     private Integer pId;
@@ -11,11 +11,11 @@ public class Position {
 
     private String pWorkPlace;
 
+    private Date createDate;
+
     private String pDesc;
 
     private Integer sn;
-
-    private Date createDate;
 
     public Integer getpId() {
         return pId;
@@ -49,6 +49,14 @@ public class Position {
         this.pWorkPlace = pWorkPlace == null ? null : pWorkPlace.trim();
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public String getpDesc() {
         return pDesc;
     }
@@ -63,13 +71,5 @@ public class Position {
 
     public void setSn(Integer sn) {
         this.sn = sn;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 }

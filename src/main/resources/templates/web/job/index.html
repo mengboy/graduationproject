@@ -85,7 +85,7 @@
     <div class="left_box" id="spleft">
         <div class="lanmu_title">人才招聘</div>
         <div id="lanmu_list">
-            <ul>
+            <ul id="jobType">
                 <li onclick="show('shContent')" ><a href="#">社会招聘</a></li>
                 <li onclick="show('sxContent')" ><a href="#">实习生招聘</a></li>
                 <li id="cbnmove"><img src="../web/images/lmbg.jpg" width="228" height="32" /></li>
@@ -136,7 +136,15 @@
     <div id="sxContent" class="yjiu_hz">
         <p style="text-indent:2em;">目前暂时没有实习生招聘计划，谢谢关注！</p>
     </div>
+
+
+    <div id="content">
+
+    </div>
+
 </div>
+
+
 
 
 <footer>
@@ -206,6 +214,32 @@
 <!--导航效果的js END-->
 <!--切换图JS-->
 <script src="../web/js/banner.slide.jquery.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var prefix = "/bigdata/recruitment";
+    $().ready(function () {
+        $.ajax({
+            url : prefix + "/type",
+            type : "GET",
+            data : "",
+            success : function(r) {
+                if (r.code == 0) {
+                    for(let i = 0; i < r.result.length; i++){
+                        var jtName = r.result[i].jtName;
+                        var jtId = r.result[i].jtId;
+
+                    }
+
+                } else {
+                    layer.msg(r.msg);
+                }
+            }
+        });
+    });
+
+</script>
+
+
 <!--导航切换和回到顶部JS-->
 <script src="../web/js/back_top.js" type="text/javascript"></script>
 <script type="text/javascript">
