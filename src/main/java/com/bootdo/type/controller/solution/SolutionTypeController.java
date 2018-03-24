@@ -3,8 +3,6 @@ package com.bootdo.type.controller.solution;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
-import com.bootdo.type.dao.SolutionTypeMapper;
-import com.bootdo.type.domain.Solution;
 import com.bootdo.type.domain.SolutionType;
 import com.bootdo.type.service.SolutionTypeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

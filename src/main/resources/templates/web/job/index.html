@@ -86,8 +86,8 @@
         <div class="lanmu_title">人才招聘</div>
         <div id="lanmu_list">
             <ul id="jobType">
-                <li onclick="show('shContent')" ><a href="#">社会招聘</a></li>
-                <li onclick="show('sxContent')" ><a href="#">实习生招聘</a></li>
+                <!--<li onclick="show('shContent')" ><a href="#">社会招聘</a></li>-->
+                <!--<li onclick="show('sxContent')" ><a href="#">实习生招聘</a></li>-->
                 <li id="cbnmove"><img src="../web/images/lmbg.jpg" width="228" height="32" /></li>
             </ul>
         </div>
@@ -95,11 +95,12 @@
     <!--左侧栏目END-->
     <!--右侧代码-->
     <div id="shContent"  class="yjiu_hz">
-        <div style="text-indent:2em;">西南交通大学中国土地信息大数据研究院是2015年提出并更名，2016年10月9日，学校第十四届党委会第46次常委（扩大）会议审议并通过成立。决议确定：研究院以科学技术发展研究院为主管部门，由信息科学与技术学院、电气学院、地理科学与环境工程学院联合共建。2016年10月27日，学校发布西交校人【2016】120号“西南交通大学关于成立‘西南交通大学中国土地信息大数据研究院’等三个机构的通知”的文件，研究院正式成立。2016年12月26日，学校发布西交校[2016]82号“西南交通大学关于启用‘四川省社会科学重点研究基地现代设计与文化研究中心’等单位印章的通知”的文件，研究院正式对外开展科研项目的合作。2017年3月27日，学校在九里校区创新大厦为研究院分配了科研场地，支持研究院的科学研究工作，为“西南交通大学 四川省农业厅战略合作协议”中共建“四川省农村土地大数据中心”和“西南交通大学 四川省国土资源厅战略合作协议”中共建“四川省国土资源大数据中心”提供场地保障。为落实校厅农业大数据、农业信息科学、农业技术、农业精准化等方面提供了保障。
+        <div style="text-indent:2em;" id="desc">西南交通大学中国土地信息大数据研究院是2015年提出并更名，2016年10月9日，学校第十四届党委会第46次常委（扩大）会议审议并通过成立。决议确定：研究院以科学技术发展研究院为主管部门，由信息科学与技术学院、电气学院、地理科学与环境工程学院联合共建。2016年10月27日，学校发布西交校人【2016】120号“西南交通大学关于成立‘西南交通大学中国土地信息大数据研究院’等三个机构的通知”的文件，研究院正式成立。2016年12月26日，学校发布西交校[2016]82号“西南交通大学关于启用‘四川省社会科学重点研究基地现代设计与文化研究中心’等单位印章的通知”的文件，研究院正式对外开展科研项目的合作。2017年3月27日，学校在九里校区创新大厦为研究院分配了科研场地，支持研究院的科学研究工作，为“西南交通大学 四川省农业厅战略合作协议”中共建“四川省农村土地大数据中心”和“西南交通大学 四川省国土资源厅战略合作协议”中共建“四川省国土资源大数据中心”提供场地保障。为落实校厅农业大数据、农业信息科学、农业技术、农业精准化等方面提供了保障。
         </div>
         <div id="demo-nested" class="cwBox boxHz">
-            <ul id="demo-nested-nav">
+            <ul id="demo-nested-nav" id="city">
                 <li><a href="#">成 都</a></li>
+                <li><a href="#">北京</a> </li>
             </ul>
             <div class="tabs-container">
                 <div class="tab-nested ctbox">
@@ -216,6 +217,8 @@
 <script src="../web/js/banner.slide.jquery.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    // <li onclick="show('shContent')" ><a href="#">社会招聘</a></li>
+    // <li onclick="show('sxContent')" ><a href="#">实习生招聘</a></li>
     var prefix = "/bigdata/recruitment";
     $().ready(function () {
         $.ajax({
@@ -227,7 +230,8 @@
                     for(let i = 0; i < r.result.length; i++){
                         var jtName = r.result[i].jtName;
                         var jtId = r.result[i].jtId;
-
+                        var li = '<li onclick="jobPosition(' + jtId + ')"><a href="#">' + jtName + '</a></li>';
+                        $("#jobType").append(li);
                     }
 
                 } else {
@@ -236,6 +240,10 @@
             }
         });
     });
+
+    function jobPosition(jtId) {
+
+    }
 
 </script>
 

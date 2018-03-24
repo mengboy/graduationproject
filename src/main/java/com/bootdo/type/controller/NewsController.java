@@ -1,7 +1,6 @@
 package com.bootdo.type.controller;
 
 
-import com.bootdo.common.utils.JSONUtils;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.type.domain.NewsType;

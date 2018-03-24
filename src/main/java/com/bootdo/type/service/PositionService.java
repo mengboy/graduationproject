@@ -1,7 +1,6 @@
 package com.bootdo.type.service;
 
 
-import com.bootdo.type.domain.JobType;
 import com.bootdo.type.domain.Position;
 
 import java.util.List;

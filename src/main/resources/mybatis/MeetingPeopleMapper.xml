@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bootdo.type.dao.MeetingPeopleMapper">
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.MeetingPeople">
+    <id column="mp_id" jdbcType="INTEGER" property="mpId" />
+    <result column="truename" jdbcType="VARCHAR" property="truename" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="registertime" jdbcType="VARCHAR" property="registertime" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mp_id, truename, telephone, company, position, registertime, email, remark, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from meeting_people
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from meeting_people
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.MeetingPeople">
+    insert into meeting_people (mp_id, truename, telephone, 
+      company, position, registertime, 
+      email, remark, is_del
+      )
+    values (#{mpId,jdbcType=INTEGER}, #{truename,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{registertime,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.MeetingPeople">
+    insert into meeting_people
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mpId != null">
+        mp_id,
+      </if>
+      <if test="truename != null">
+        truename,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="registertime != null">
+        registertime,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mpId != null">
+        #{mpId,jdbcType=INTEGER},
+      </if>
+      <if test="truename != null">
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null">
+        #{registertime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.MeetingPeople">
+    update meeting_people
+    <set>
+      <if test="truename != null">
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null">
+        registertime = #{registertime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.MeetingPeople">
+    update meeting_people
+    set truename = #{truename,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      registertime = #{registertime,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.MeetingPeople">
+    <id column="mp_id" jdbcType="INTEGER" property="mpId" />
+    <result column="truename" jdbcType="VARCHAR" property="truename" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="registertime" jdbcType="VARCHAR" property="registertime" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mp_id, truename, telephone, company, position, registertime, email, remark, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from meeting_people
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </select>
+  <select id="list" resultType="com.bootdo.type.domain.MeetingPeople">
+    SELECT <include refid="Base_Column_List" />
+    FROM meeting_people
+    WHERE is_del = '0'
+    limit #{offset}, #{limit}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(mp_id) FROM meeting_people
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from meeting_people
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.MeetingPeople">
+    insert into meeting_people (mp_id, truename, telephone, 
+      company, position, registertime, 
+      email, remark, is_del
+      )
+    values (#{mpId,jdbcType=INTEGER}, #{truename,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{registertime,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.MeetingPeople">
+    insert into meeting_people
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mpId != null">
+        mp_id,
+      </if>
+      <if test="truename != null">
+        truename,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="registertime != null">
+        registertime,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mpId != null">
+        #{mpId,jdbcType=INTEGER},
+      </if>
+      <if test="truename != null">
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null">
+        #{registertime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.MeetingPeople">
+    update meeting_people
+    <set>
+      <if test="truename != null">
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null">
+        registertime = #{registertime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.MeetingPeople">
+    update meeting_people
+    set truename = #{truename,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      registertime = #{registertime,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where mp_id = #{mpId,jdbcType=INTEGER}
+  </update>
+    <update id="upDelStatus">
+      UPDATE meeting_people
+      SET is_del = '1'
+      where mp_id = #{mpId,jdbcType=INTEGER}
+    </update>
+</mapper>

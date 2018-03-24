@@ -30,7 +30,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="position" domainObjectName="Position" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="meeting_people" domainObjectName="MeetingPeople" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
     </context>
 </generatorConfiguration>

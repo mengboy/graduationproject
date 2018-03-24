@@ -1,9 +1,7 @@
 package com.bootdo.type.service.impl;
 
 import com.bootdo.type.dao.SolutionTypeMapper;
-import com.bootdo.type.domain.Solution;
 import com.bootdo.type.domain.SolutionType;
-import com.bootdo.type.service.SolutionService;
 import com.bootdo.type.service.SolutionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

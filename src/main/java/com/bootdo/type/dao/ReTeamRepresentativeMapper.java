@@ -3,7 +3,6 @@ package com.bootdo.type.dao;
 import com.bootdo.type.domain.ReTeamRepresentative;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ReTeamRepresentativeMapper {
     int deleteByPrimaryKey(Integer rtrid);

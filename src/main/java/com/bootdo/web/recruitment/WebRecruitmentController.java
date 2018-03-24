@@ -42,6 +42,40 @@ public class WebRecruitmentController {
         return R.ok(map);
     }
 
+    @RequestMapping("/getWorkPlacesByTypeId")
+    @ResponseBody
+    Object getWorkPlacesByType(@RequestParam Integer typeId){
+        List<String> workPlaces = null;
+        try{
+            workPlaces = positionService.getWorkPlaces(typeId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error();
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("results", workPlaces);
+        return R.ok(map);
+    }
+
+    @RequestMapping("/getPositionByPlaceAndTypeId")
+    @ResponseBody
+    Object getPositionByPlaceAndTypeId(@RequestParam String workPlace, @RequestParam Integer typeId){
+        Map<String, Object> params = new HashMap<>();
+        params.put("workPlace", workPlace);
+        params.put("typeId", typeId);
+        List<Position> positions = null;
+        try{
+            positions = positionService.getPositionByPlace(params);
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error();
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("results", positions);
+
+        return R.ok(map);
+    }
+
     @RequestMapping("/getPositionGroupByPlace")
     @ResponseBody
     Object getPositionByPlace(@RequestParam Integer typeId){
@@ -51,12 +85,12 @@ public class WebRecruitmentController {
         try{
             workPlaces = positionService.getWorkPlaces(typeId);
             if(workPlaces != null){
-                for(String wordPlace : workPlaces){
+                for(String workPlace : workPlaces){
                     Map<String, Object> params = new HashMap<>();
-                    params.put("workPlace", wordPlace);
+                    params.put("workPlace", workPlace);
                     params.put("typeId", typeId);
                     positions = positionService.getPositionByPlace(params);
-                    positionsOfworkPlace.put(wordPlace, positions);
+                    positionsOfworkPlace.put(workPlace, positions);
                 }
             }
         }catch (Exception e){

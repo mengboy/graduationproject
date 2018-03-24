@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.SignatureMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Signature" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="registertime" property="registertime" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="meeting" property="meeting" jdbcType="VARCHAR" />
+    <result column="meetingtime" property="meetingtime" jdbcType="VARCHAR" />
+    <result column="meetingaddr" property="meetingaddr" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, truename, telephone, company, position, registertime, email, meeting, meetingtime, 
+    meetingaddr, remark, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from signature
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="count" resultType="java.lang.Integer">
+      SELECT count(id) FROM signature
+    </select>
+  <select id="list" resultType="com.bootdo.type.domain.Signature">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM signature
+    WHERE is_del = '0'
+    limit #{offset}, #{limit}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from signature
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.Signature" >
+    insert into signature (id, truename, telephone, 
+      company, position, registertime, 
+      email, meeting, meetingtime, 
+      meetingaddr, remark, is_del
+      )
+    values (#{id,jdbcType=INTEGER}, #{truename,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{registertime,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{meeting,jdbcType=VARCHAR}, #{meetingtime,jdbcType=VARCHAR}, 
+      #{meetingaddr,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Signature" >
+    insert into signature
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="truename != null" >
+        truename,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="registertime != null" >
+        registertime,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="meeting != null" >
+        meeting,
+      </if>
+      <if test="meetingtime != null" >
+        meetingtime,
+      </if>
+      <if test="meetingaddr != null" >
+        meetingaddr,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="truename != null" >
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="meeting != null" >
+        #{meeting,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingtime != null" >
+        #{meetingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingaddr != null" >
+        #{meetingaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Signature" >
+    update signature
+    <set >
+      <if test="truename != null" >
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        registertime = #{registertime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="meeting != null" >
+        meeting = #{meeting,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingtime != null" >
+        meetingtime = #{meetingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingaddr != null" >
+        meetingaddr = #{meetingaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Signature" >
+    update signature
+    set truename = #{truename,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      registertime = #{registertime,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      meeting = #{meeting,jdbcType=VARCHAR},
+      meetingtime = #{meetingtime,jdbcType=VARCHAR},
+      meetingaddr = #{meetingaddr,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="upDelStatus">
+    update signature
+    SET is_del = '1'
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.CertificateMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Certificate" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="organization" property="organization" jdbcType="VARCHAR" />
+    <result column="ctype" property="ctype" jdbcType="VARCHAR" />
+    <result column="signdate" property="signdate" jdbcType="VARCHAR" />
+    <result column="headpic" property="headpic" jdbcType="VARCHAR" />
+    <result column="begindate" property="begindate" jdbcType="VARCHAR" />
+    <result column="enddate" property="enddate" jdbcType="VARCHAR" />
+    <result column="validtime" property="validtime" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cid, name, sex, idcard, number, organization, ctype, signdate, headpic, begindate, 
+    enddate, validtime, email, telphone, is_del, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from certificate
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <select id="list" resultType="com.bootdo.type.domain.Certificate">
+    select
+    <include refid="Base_Column_List"/>
+    FROM certificate
+    WHERE is_del = '0'
+    limit #{offset}, #{limit}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT count(cid) FROM certificate
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from certificate
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.Certificate" >
+    insert into certificate (cid, name, sex, 
+      idcard, number, organization, 
+      ctype, signdate, headpic, 
+      begindate, enddate, validtime, 
+      email, telphone, is_del, 
+      remark)
+    values (#{cid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{organization,jdbcType=VARCHAR}, 
+      #{ctype,jdbcType=VARCHAR}, #{signdate,jdbcType=VARCHAR}, #{headpic,jdbcType=VARCHAR}, 
+      #{begindate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, #{validtime,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Certificate" >
+    insert into certificate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="organization != null" >
+        organization,
+      </if>
+      <if test="ctype != null" >
+        ctype,
+      </if>
+      <if test="signdate != null" >
+        signdate,
+      </if>
+      <if test="headpic != null" >
+        headpic,
+      </if>
+      <if test="begindate != null" >
+        begindate,
+      </if>
+      <if test="enddate != null" >
+        enddate,
+      </if>
+      <if test="validtime != null" >
+        validtime,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="signdate != null" >
+        #{signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="headpic != null" >
+        #{headpic,jdbcType=VARCHAR},
+      </if>
+      <if test="begindate != null" >
+        #{begindate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="validtime != null" >
+        #{validtime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Certificate" >
+    update certificate
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        ctype = #{ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="signdate != null" >
+        signdate = #{signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="headpic != null" >
+        headpic = #{headpic,jdbcType=VARCHAR},
+      </if>
+      <if test="begindate != null" >
+        begindate = #{begindate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        enddate = #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="validtime != null" >
+        validtime = #{validtime,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Certificate" >
+    update certificate
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      organization = #{organization,jdbcType=VARCHAR},
+      ctype = #{ctype,jdbcType=VARCHAR},
+      signdate = #{signdate,jdbcType=VARCHAR},
+      headpic = #{headpic,jdbcType=VARCHAR},
+      begindate = #{begindate,jdbcType=VARCHAR},
+      enddate = #{enddate,jdbcType=VARCHAR},
+      validtime = #{validtime,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+    <update id="upDelStatus">
+      UPDATE certificate
+      SET is_del = '1'
+      WHERE cid = #{cid,jdbcType=INTEGER}
+    </update>
+</mapper>

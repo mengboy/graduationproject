@@ -3,7 +3,6 @@ package com.bootdo.web.datadownload;
 
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
-import com.bootdo.common.utils.R;
 import com.bootdo.type.domain.DataDownload;
 import com.bootdo.type.service.DataDownloadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

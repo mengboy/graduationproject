@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.type.dao.MeetingMapper" >
+  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Meeting" >
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="meeting" property="meeting" jdbcType="VARCHAR" />
+    <result column="meetingtime" property="meetingtime" jdbcType="VARCHAR" />
+    <result column="meetingaddr" property="meetingaddr" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    m_id, meeting, meetingtime, meetingaddr, remark, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from meeting
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <select id="list" resultType="com.bootdo.type.domain.Meeting">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM meeting
+    WHERE is_del = '0'
+    ORDER BY m_id DESC
+    limit #{offset}, #{limit}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT count(m_id) FROM meeting
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from meeting
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bootdo.type.domain.Meeting" >
+    insert into meeting (m_id, meeting, meetingtime, 
+      meetingaddr, remark, is_del
+      )
+    values (#{mId,jdbcType=INTEGER}, #{meeting,jdbcType=VARCHAR}, #{meetingtime,jdbcType=VARCHAR}, 
+      #{meetingaddr,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Meeting" >
+    insert into meeting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="meeting != null" >
+        meeting,
+      </if>
+      <if test="meetingtime != null" >
+        meetingtime,
+      </if>
+      <if test="meetingaddr != null" >
+        meetingaddr,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="meeting != null" >
+        #{meeting,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingtime != null" >
+        #{meetingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingaddr != null" >
+        #{meetingaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Meeting" >
+    update meeting
+    <set >
+      <if test="meeting != null" >
+        meeting = #{meeting,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingtime != null" >
+        meetingtime = #{meetingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingaddr != null" >
+        meetingaddr = #{meetingaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Meeting" >
+    update meeting
+    set meeting = #{meeting,jdbcType=VARCHAR},
+      meetingtime = #{meetingtime,jdbcType=VARCHAR},
+      meetingaddr = #{meetingaddr,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+    <update id="upDelStatus">
+      UPDATE meeting
+      SET is_del = '1'
+      WHERE m_id = #{mId,jdbcType=INTEGER}
+    </update>
+</mapper>

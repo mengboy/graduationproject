@@ -1,6 +1,5 @@
 package com.bootdo.type.service;
 
-import com.bootdo.type.domain.Solution;
 import com.bootdo.type.domain.SolutionType;
 
 import java.util.List;
