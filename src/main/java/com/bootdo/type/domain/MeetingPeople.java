@@ -19,6 +19,16 @@ public class MeetingPeople {
 
     private String isDel;
 
+    public Integer getSn() {
+        return sn;
+    }
+
+    public void setSn(Integer sn) {
+        this.sn = sn;
+    }
+
+    private Integer sn;
+
     public Integer getMpId() {
         return mpId;
     }

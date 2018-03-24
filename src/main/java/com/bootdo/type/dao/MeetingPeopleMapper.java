@@ -1,6 +1,9 @@
 package com.bootdo.type.dao;
 
+import com.bootdo.common.utils.Query;
 import com.bootdo.type.domain.MeetingPeople;
+
+import java.util.List;
 
 public interface MeetingPeopleMapper {
     int deleteByPrimaryKey(Integer mpId);
@@ -14,4 +17,10 @@ public interface MeetingPeopleMapper {
     int updateByPrimaryKeySelective(MeetingPeople record);
 
     int updateByPrimaryKey(MeetingPeople record);
+
+    void upDelStatus(Integer mpId);
+
+    List<MeetingPeople> list(Query query);
+
+    int count();
 }
