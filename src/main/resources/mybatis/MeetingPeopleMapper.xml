@@ -3,6 +3,7 @@
 <mapper namespace="com.bootdo.type.dao.MeetingPeopleMapper" >
   <resultMap id="BaseResultMap" type="com.bootdo.type.domain.MeetingPeople" >
     <id column="mp_id" property="mpId" jdbcType="INTEGER" />
+    <result column="m_id" property="mId" jdbcType="INTEGER"/>
     <result column="truename" property="truename" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="company" property="company" jdbcType="VARCHAR" />
@@ -13,7 +14,7 @@
     <result column="is_del" property="isDel" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    mp_id, truename, telephone, company, position, registertime, email, remark, is_del
+    mp_id, m_id, truename, telephone, company, position, registertime, email, remark, is_del
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -28,18 +29,18 @@
     limit #{offset}, #{limit}
   </select>
   <select id="count" resultType="java.lang.Integer">
-    SELECT COUNT(mp_id) FROM meeting_people
+    SELECT COUNT(mp_id) FROM meeting_people WHERE is_del = '0'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from meeting_people
     where mp_id = #{mpId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bootdo.type.domain.MeetingPeople" >
-    insert into meeting_people (mp_id, truename, telephone,
+    insert into meeting_people (mp_id, m_id, truename, telephone,
       company, position, registertime,
       email, remark, is_del
       )
-    values (#{mpId,jdbcType=INTEGER}, #{truename,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
+    values (#{mpId,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{truename,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
       #{company,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{registertime,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}
       )
@@ -49,6 +50,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="mpId != null" >
         mp_id,
+      </if>
+      <if test="mId != null">
+        m_id,
       </if>
       <if test="truename != null" >
         truename,
@@ -79,6 +83,9 @@
       <if test="mpId != null" >
         #{mpId,jdbcType=INTEGER},
       </if>
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
       <if test="truename != null" >
         #{truename,jdbcType=VARCHAR},
       </if>
@@ -108,6 +115,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.MeetingPeople" >
     update meeting_people
     <set >
+      <if test="mId != null">
+        m_id = #{mId, jdbcType=INTEGER},
+      </if>
       <if test="truename != null" >
         truename = #{truename,jdbcType=VARCHAR},
       </if>
@@ -137,7 +147,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.MeetingPeople" >
     update meeting_people
-    set truename = #{truename,jdbcType=VARCHAR},
+    set m_id = #{mId, jdbcType=INTEGER},
+      truename = #{truename,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},
       position = #{position,jdbcType=VARCHAR},

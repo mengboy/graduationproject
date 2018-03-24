@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("meetingService")
 public class MeetingServiceImpl implements MeetingService{
@@ -36,8 +37,8 @@ public class MeetingServiceImpl implements MeetingService{
     }
 
     @Override
-    public List<Meeting> list(Query query) {
-        return meetingMapper.list(query);
+    public List<Meeting> list(Map map) {
+        return meetingMapper.list(map);
     }
 
     @Override

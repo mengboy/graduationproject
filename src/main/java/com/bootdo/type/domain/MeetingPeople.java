@@ -3,6 +3,10 @@ package com.bootdo.type.domain;
 public class MeetingPeople {
     private Integer mpId;
 
+    private Integer mId;
+
+    private String meeting;
+
     private String truename;
 
     private String telephone;
@@ -99,5 +103,21 @@ public class MeetingPeople {
 
     public void setIsDel(String isDel) {
         this.isDel = isDel == null ? null : isDel.trim();
+    }
+
+    public String getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(String meeting) {
+        this.meeting = meeting;
+    }
+
+    public Integer getmId() {
+        return mId;
+    }
+
+    public void setmId(Integer mId) {
+        this.mId = mId;
     }
 }

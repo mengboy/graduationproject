@@ -5,6 +5,7 @@ import com.bootdo.type.domain.Meeting;
 import com.bootdo.type.domain.Signature;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MeetingService {
     void insert(Meeting meeting);
@@ -15,7 +16,7 @@ public interface MeetingService {
 
     Meeting select(Integer id);
 
-    List<Meeting> list(Query query);
+    List<Meeting> list(Map map);
 
     int count();
 }

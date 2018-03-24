@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,7 @@ public class SignatureController {
             e.printStackTrace();
             return R.error();
         }
-        return R.ok("meeting", meeting);
+        return R.ok("result", meeting);
     }
 
     @RequestMapping("/selectMeetingPages")
@@ -108,6 +109,20 @@ public class SignatureController {
         int total = meetingService.count();
 
         return new PageUtils(meetingList, total);
+    }
+
+    @RequestMapping("/listMeeting")
+    @ResponseBody
+    Object listMeeting(){
+        List<Meeting> meetingList = null;
+        try{
+            meetingList = meetingService.list(new HashMap());
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error();
+        }
+
+        return R.ok("results", meetingList);
     }
 
 
@@ -152,13 +167,14 @@ public class SignatureController {
     @RequestMapping("/selectMeetingPeopleById")
     @ResponseBody
     Object selectMeetingPeopleById(@RequestParam  Integer id){
+        MeetingPeople m = null;
         try{
-            meetingPeopleService.select(id);
+            m = meetingPeopleService.select(id);
         }catch (Exception e){
             e.printStackTrace();
             return R.error();
         }
-        return R.ok();
+        return R.ok("result", m);
     }
 
     @RequestMapping("/selectMeetingPeoplePages")
@@ -170,6 +186,7 @@ public class SignatureController {
             meetingPeopleList = meetingPeopleService.list(query);
             int i = 1;
             for(MeetingPeople meetingPeople : meetingPeopleList){
+                meetingPeople.setMeeting(meetingService.select(meetingPeople.getmId()).getMeeting());
                 meetingPeople.setSn(i);
                 i++;
             }
@@ -178,8 +195,6 @@ public class SignatureController {
             return R.error();
         }
         int total = meetingPeopleService.count();
-
-
         return new PageUtils(meetingPeopleList, total);
     }
 }

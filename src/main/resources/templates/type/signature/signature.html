@@ -49,8 +49,12 @@
     </div>
 </div>
 <div th:include="include :: footer"></div>
+
+
+<script type="text/javascript" src="/js/laydate/laydate.js"></script>
+
 <script>
-    var prefix = "/type/recruitment";
+    var prefix = "/type/signature";
     $(function() {
         meeting();
     });
@@ -101,31 +105,38 @@
                         },
                         {
                             visible : false,
-                            field : 'jtId',
-                            title : ''
+                            field : 'mId'
                         },
                         {
                             field : 'sn',
-                            title : '序号',
-                            width :320
+                            title : '序号'
                         },
                         {
-                            field : 'jtName',
-                            title : '分类名称'
+                            field : 'meeting',
+                            title : '会议名称'
                         },
+                        {
+                            field : 'meetingtime',
+                            title : '会议时间'
+                        },
+                        {
+                            field : 'meetingaddr',
+                            title : '会议地址'
+                        },
+
                         {
                             title : '操作',
                             field : 'id',
                             align : 'center',
                             formatter : function(value, row, index) {
                                 var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="editMeeting(\''
-                                    + row.jtId
+                                    + row.mId
                                     + '\')"><i class="fa fa-edit"></i></a> ';
                                 var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="removeMeeting(\''
-                                    + row.jtId
+                                    + row.mId
                                     + '\')"><i class="fa fa-remove"></i></a> ';
                                 var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-                                    + row.jtId
+                                    + row.mId
                                     + '\')"><i class="fa fa-key"></i></a> ';
                                 return e + d;
                             }
@@ -139,7 +150,7 @@
             btn : [ '确定', '取消' ]
         }, function() {
             $.ajax({
-                url : prefix + "/delType",
+                url : prefix + "/delMeeting",
                 type : "post",
                 data : {
                     'id' : id
@@ -202,21 +213,27 @@
                         },
                         {
                             visible : false,
-                            field : 'pId',
-                            title : ''
+                            field : 'mpId'
                         },
                         {
                             field : 'sn',
-                            title : '序号',
-                            width :320
+                            title : '序号'
                         },
                         {
-                            field : 'pName',
-                            title : '职位名称'
+                            field : 'truename',
+                            title : '姓名'
                         },
                         {
-                            field : 'pWorkPlace',
-                            title : '工作地点'
+                            field : 'company',
+                            title : '公司单位'
+                        },
+                        {
+                            field : 'position',
+                            title : '职称'
+                        },
+                        {
+                            field : 'meeting',
+                            title : '签到会议'
                         },
                         {
                             title : '操作',
@@ -224,13 +241,13 @@
                             align : 'center',
                             formatter : function(value, row, index) {
                                 var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="editMeetingPeople(\''
-                                    + row.pId
+                                    + row.mpId
                                     + '\')"><i class="fa fa-edit"></i></a> ';
                                 var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="removeMeetingPeople(\''
-                                    + row.pId
+                                    + row.mpId
                                     + '\')"><i class="fa fa-remove"></i></a> ';
                                 var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-                                    + row.pId
+                                    + row.mpId
                                     + '\')"><i class="fa fa-key"></i></a> ';
                                 return e + d;
                             }
@@ -253,32 +270,47 @@
     function addMeeting() {
         var content = '<form id="addMeeting">'
             + '<div class="form-group">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;">分类名称:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">会议名称:</label>'
             + '<div class="col-sm-8">'
-            + '<input id="jtName" name="jtName" class="form-control" type="text" value="" />'
+            + '<input id="meeting" name="meeting" class="form-control" type="text" value="" />'
             + '</div>'
             + '</div>'
             + '<br>'
             + '<div class="form-group" style="margin-top: 30px">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;"  >分类描述:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议时间:</label>'
             + '<div class="col-sm-8">'
-            + '<div class="ibox-content no-padding">'
-            + '<textarea name="jtDesc" class="form-control" id="jtDesc" style="height: 170px"></textarea>'
-            + '</div>' + '</div>' +'</div>'
+            + '<input id="meetingtime" name="meetingtime" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议地点:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meetingaddr" name="meetingaddr" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >留言备注:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="remark" name="remark" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
             + '</form>';
         layer.open({
             type: 1,
-            title: '添加招聘种类',
+            title: '添加会议',
             shadeClose: true,
             shade: 0.8,
-            area: ['700px', '400px'],
+            area: ['700px', '300px'],
             content: content,
             btn: ['添加', '取消'],
             yes: function(){
                 $.ajax({
-                    url : prefix + "/saveType",
+                    url : prefix + "/saveMeeting",
                     type : "POST",
-                    data : $("#addTypeForm").serialize(),
+                    data : $("#addMeeting").serialize(),
                     success : function(r) {
                         if (r.code == 0) {
                             layer.msg(r.msg);
@@ -296,40 +328,59 @@
             success: function(layero){
                 layero.find('.layui-layer-btn').css('text-align', 'center');
                 layero.find('.layui-layer-btn').css('padding-top', '0px');
+                laydate.render({
+                    elem: '#meetingtime', //指定元素
+                    type: 'datetime'
+                });
             }
         });
     }
 
-    function editMeeting(jtId){
-        var content = '<form id="addTypeForm">'
+    function editMeeting(mid) {
+        var content = '<form id="editMeeting">'
             + '<div class="form-group">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;">分类名称:</label>'
+            + '<input id="mId" name="mId" class="form-control" type="text" value="" style="display: none"/>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">会议名称:</label>'
             + '<div class="col-sm-8">'
-            + '<input type="text" name="jtId" id="jtId" style="display: none" />'
-            + '<input id="jtName" name="jtName" class="form-control" type="text" value="" />'
+            + '<input id="meet" name="meeting" class="form-control" type="text" />'
             + '</div>'
             + '</div>'
             + '<br>'
             + '<div class="form-group" style="margin-top: 30px">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;"  >分类描述:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议时间:</label>'
             + '<div class="col-sm-8">'
-            + '<div class="ibox-content no-padding">'
-            + '<textarea name="jtDesc" class="form-control" id="jtDesc" style="height: 170px"></textarea>'
-            + '</div>' + '</div>' +'</div>'
+            + '<input id="meetingtime" name="meetingtime" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议地点:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meetingaddr" name="meetingaddr" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >留言备注:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="remark" name="remark" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
             + '</form>';
         layer.open({
             type: 1,
-            title: '编辑招聘种类',
+            title: '编辑会议',
             shadeClose: true,
             shade: 0.8,
-            area: ['700px', '400px'],
+            area: ['700px', '300px'],
             content: content,
             btn: ['保存', '取消'],
             yes: function(){
                 $.ajax({
-                    url : prefix + "/saveType",
+                    url : prefix + "/saveMeeting",
                     type : "POST",
-                    data : $("#addTypeForm").serialize(),
+                    data : $("#editMeeting").serialize(),
                     success : function(r) {
                         if (r.code == 0) {
                             layer.msg(r.msg);
@@ -339,35 +390,45 @@
                         }
                     }
                 });
-
             },
             btn2: function()
             {
                 layer.close();
             },
             success: function(layero){
-                layero.find('.layui-layer-btn').css('text-align', 'center');
-                layero.find('.layui-layer-btn').css('padding-top', '0px');
+
                 $.ajax({
-                    url : prefix + "/getTypeById",
+                    url : prefix + "/selectMeetingById",
                     type : "POST",
                     data : {
-                        "id": jtId
+                        "id":mid
                     },
                     success : function(r) {
                         if (r.code == 0) {
-                            $("#jtId").val(r.type.jtId);
-                            $("#jtName").val(r.type.jtName);
-                            $("#jtDesc").html(r.type.jtDesc);
+                            $("#mId").val(r.result.mId);
+                            $("#meet").val(r.result['meeting']);
+                            $("#meetingtime").val(r.result['meetingtime']);
+                            $("#meetingaddr").val(r.result.meetingaddr);
+                            $("#remark").val(r.result.remark);
                         } else {
                             layer.msg(r.msg);
                         }
                     }
                 });
+
+                layero.find('.layui-layer-btn').css('text-align', 'center');
+                layero.find('.layui-layer-btn').css('padding-top', '0px');
+
+
+                laydate.render({
+                    elem: '#meetingtime', //指定元素
+                    type: 'datetime'
+                });
+
             }
         });
-
     }
+
 
 
     // <label class="col-sm-3 control-label">类型：</label>
@@ -381,37 +442,62 @@
      * 添加示范项目
      */
     function addMeetingPeople() {
-        var content = '<form id="addPositionForm">'
+        var content = '<form id="addMeetingPeople">'
+
             + '<div class="form-group">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;">职位名称:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">姓名:</label>'
             + '<div class="col-sm-8">'
-            + '<input id="pName" name="pName" class="form-control" type="text" value="" />'
+            + '<input id="truename" name="truename" class="form-control" type="text" value="" />'
             + '</div>'
             + '</div>'
-
             +'<br>'
+
+
             + '<div class="form-group" style="margin-top: 30px">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;"  >职位描述:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >联系电话:</label>'
             + '<div class="col-sm-8">'
-            + '<div class="ibox-content no-padding">'
-            + '<textarea name="pDesc" class="form-control" id="pDesc" style="height: 170px"></textarea>'
-            + '</div>' + '</div>' +'</div>'
-
+            + '<input id="telephone" name="telephone" class="form-control" type="text" value="" />'
+            + '</div>' +'</div>'
             + '<br>'
+
             + '<div class="form-group" >'
-            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">工作城市:</label>'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">公司单位:</label>'
             + '<div class="col-sm-8">'
-            + '<input style="margin-top: 10px" id="pWorkPlace" name="pWorkPlace" class="form-control" type="text" value="" />'
+            + '<input style="margin-top: 10px" id="company" name="company" class="form-control" type="text" value="" />'
             + '</div>'
             + '</div>'
             + '<br>'
 
             + '<div class="form-group" >'
-            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 8px;">招聘类型:</label>'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">职位描述:</label>'
             + '<div class="col-sm-8">'
-            + '<input style="display: none" id="jtId" name="jtId"/>'
+            + '<input style="margin-top: 10px" id="position" name="position" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">提交时间:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="registertime" name="registertime" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">电子邮箱:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="email" name="email" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 8px;">会议名称:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="display: none" id="mId" name="mId"/>'
             + '<select style="margin-top: 8px;" id="types" class="selectpicker form-control" data-live-search="true" title="选择招聘类型">'
-            + '<option value="0" selected="selected">选择招聘类型</option>'
+            + '<option value="0" selected="selected">选择会议</option>'
             + '</select>'
             + '</div>'
             + '</div>'
@@ -419,7 +505,7 @@
             + '</form>';
         layer.open({
             type: 1,
-            title: '添加招聘职位',
+            title: '会议签到报名',
             shadeClose: true,
             shade: 0.8,
             area: ['700px', '450px'],
@@ -427,9 +513,9 @@
             btn: ['添加', '取消'],
             yes: function(){
                 $.ajax({
-                    url : prefix + "/savePosition",
+                    url : prefix + "/saveMeetingPeople",
                     type : "POST",
-                    data : $("#addPositionForm").serialize(),
+                    data : $("#addMeetingPeople").serialize(),
                     success : function(r) {
                         if (r.code == 0) {
                             layer.msg(r.msg);
@@ -447,16 +533,23 @@
             success: function(layero){
                 layero.find('.layui-layer-btn').css('text-align', 'center');
                 layero.find('.layui-layer-btn').css('padding-top', '0px');
+
+
+                laydate.render({
+                    elem: '#registertime', //指定元素
+                    type: 'datetime'
+                });
+
                 $.ajax({
-                    url : prefix + "/listTypes",
+                    url : prefix + "/listMeeting",
                     type : "GET",
                     data : "",
                     success : function(r) {
                         if (r.code == 0) {
                             for(let i = 0; i < r.results.length; i++){
-                                var jtName = r.results[i].jtName;
-                                var jtId = r.results[i].jtId;
-                                var option = "<option value='" + jtId + "'>" + jtName + "</option>";
+                                var meetName = r.results[i].meeting;
+                                var mId = r.results[i].mId;
+                                var option = "<option value='" + mId + "'>" + meetName + "</option>";
                                 $("#types").append(option);
                             }
                         } else {
@@ -467,7 +560,7 @@
 
                 $("#types").change(function () {
                     var val = $(this).find("option:selected").val();
-                    $("#jtId").val(val);
+                    $("#mId").val(val);
                 });
             }
         });
@@ -477,10 +570,10 @@
 
     var add = {
         meeting: function(){
-            meeting();
+            addMeeting();
         },
         meetingPeople: function () {
-            meetingPeople();
+            addMeetingPeople();
         }
     };
 
@@ -494,37 +587,65 @@
      * 编辑
      * @param mpid
      */
+
     function editMeetingPeople(mpid) {
-        var content = '<form id="addPositionForm">'
+        var content = '<form id="editMeetingPeople">'
+
+            + '<input id="mpId" name="mpId" class="form-control" type="text" value="" style="display: none"/>'
             + '<div class="form-group">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;">职位名称:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">姓名:</label>'
             + '<div class="col-sm-8">'
-            + '<input id="pId" name="pId" class="form-control" type="text" value=""  style="display: none"/>'
-            + '<input id="pName" name="pName" class="form-control" type="text" value="" />'
+            + '<input id="truename" name="truename" class="form-control" type="text" value="" />'
             + '</div>'
             + '</div>'
-            + '<br>'
+            +'<br>'
+
+
             + '<div class="form-group" style="margin-top: 30px">'
-            + '<label class="col-sm-3 control-label" style="text-align:right;"  >职位描述:</label>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >联系电话:</label>'
             + '<div class="col-sm-8">'
-            + '<div class="ibox-content no-padding">'
-            + '<textarea name="pDesc" class="form-control" id="pDesc" style="height: 170px"></textarea>'
-            + '</div>' + '</div>' +'</div>'
-
+            + '<input id="telephone" name="telephone" class="form-control" type="text" value="" />'
+            + '</div>' +'</div>'
             + '<br>'
-            + '<div class="form-group" >'
-            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">工作城市:</label>'
-            + '<div class="col-sm-8">'
-            + '<input style="margin-top: 10px" id="pWorkPlace" name="pWorkPlace" class="form-control" type="text" value="" />'
-            + '</div>'
-            + '</div>'
 
             + '<div class="form-group" >'
-            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 8px;">招聘类型:</label>'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">公司单位:</label>'
             + '<div class="col-sm-8">'
-            + '<input style="display: none" id="jtId" name="jtId"/>'
-            + '<select style="margin-top: 8px;" id="editTypes" class="selectpicker form-control" data-live-search="true" title="选择招聘类型">'
-            + '<option value="0" selected="selected">选择招聘类型</option>'
+            + '<input style="margin-top: 10px" id="company" name="company" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">职位描述:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="position" name="position" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">提交时间:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="registertime" name="registertime" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">电子邮箱:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="email" name="email" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 8px;">会议名称:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="display: none" id="mId" name="mId"/>'
+            + '<select style="margin-top: 8px;" id="types" class="selectpicker form-control" data-live-search="true" title="选择招聘类型">'
+            + '<option value="0" selected="selected">选择会议</option>'
             + '</select>'
             + '</div>'
             + '</div>'
@@ -532,17 +653,17 @@
             + '</form>';
         layer.open({
             type: 1,
-            title: '编辑招聘职位',
+            title: '会议签到报名',
             shadeClose: true,
             shade: 0.8,
-            area: ['700px', '420px'],
+            area: ['700px', '450px'],
             content: content,
             btn: ['保存', '取消'],
             yes: function(){
                 $.ajax({
-                    url : prefix + "/savePosition",
+                    url : prefix + "/saveMeetingPeople",
                     type : "POST",
-                    data : $("#addPositionForm").serialize(),
+                    data : $("#editMeetingPeople").serialize(),
                     success : function(r) {
                         if (r.code == 0) {
                             layer.msg(r.msg);
@@ -562,56 +683,63 @@
                 layero.find('.layui-layer-btn').css('padding-top', '0px');
 
 
+                laydate.render({
+                    elem: '#registertime', //指定元素
+                    type: 'datetime'
+                });
                 $.ajax({
-                    url : prefix + "/editPosition",
+                    url : prefix + "/selectMeetingPeopleById",
                     type : "POST",
                     data : {
-                        "id": pid
+                        "id": mpid
                     },
                     success : function(r) {
                         if (r.code == 0) {
-                            $("#pId").val(r.position.pId);
-                            $("#pName").val(r.position.pName);
-                            $("#pDesc").html(r.position.pDesc.replace("[\r\n]", "<br>"));
-                            $("#pWorkPlace").val(r.position.pWorkPlace);
-                            $("#jtId").val(r.position.jtId);
-
+                            $("#mpId").val(r.result.mpId);
+                            $("#truename").val(r.result.truename);
+                            $("#telephone").val(r.result.telephone);
+                            $("#company").val(r.result.company);
+                            $("#position").val(r.result.position);
+                            $("#registertime").val(r.result.registertime);
+                            $("#email").val(r.result.email);
+                            $("#mId").val(r.result.mId);
                         } else {
                             layer.msg(r.msg);
                         }
                     }
                 });
+
                 $.ajax({
-                    url : prefix + "/listTypes",
+                    url : prefix + "/listMeeting",
                     type : "GET",
                     data : "",
                     success : function(r) {
                         if (r.code == 0) {
                             for(let i = 0; i < r.results.length; i++){
-                                var jtName = r.results[i].jtName;
-                                var jtId = r.results[i].jtId;
-                                var option = "<option value='" + jtId + "'>" + jtName + "</option>";
-                                $("#editTypes").append(option);
+                                var meetName = r.results[i].meeting;
+                                var mId = r.results[i].mId;
+                                var option = "<option value='" + mId + "'>" + meetName + "</option>";
+                                $("#types").append(option);
                             }
-                            var selectJtId = $("#jtId").val();
+                            var selectJtId = $("#mId").val();
+
                             if(selectJtId > 0){
                                 var option = "option[value= "  + selectJtId + "]";
-                                $("#editTypes").find(option).attr("selected",true);
+                                $("#types").find(option).attr("selected",true);
                             }else {
-                                $("#editTypes").find("option[value='0']").attr("selected",true);
+                                $("#types").find("option[value='0']").attr("selected",true);
                             }
+
                         } else {
                             layer.msg(r.msg);
                         }
                     }
                 });
 
-                $("#editTypes").change(function () {
+                $("#types").change(function () {
                     var val = $(this).find("option:selected").val();
-                    $("#jtId").val(val);
+                    $("#mId").val(val);
                 });
-
-
             }
         });
     }
@@ -621,7 +749,7 @@
             btn : [ '确定', '取消' ]
         }, function() {
             $.ajax({
-                url : prefix + "/delPosition",
+                url : prefix + "/delMeetingPeople",
                 type : "post",
                 data : {
                     'id' : id
@@ -687,13 +815,13 @@
         $("#btnId").val($(button).attr("id"));
     }
 
-    $("#recruitmentType").click(function () {
+    $("#meeting").click(function () {
         changeBtnClass(this);
         destroy();
         meeting();
     });
 
-    $("#position").click(function () {
+    $("#meetingPeople").click(function () {
         changeBtnClass(this);
         destroy();
         meetingPeople();

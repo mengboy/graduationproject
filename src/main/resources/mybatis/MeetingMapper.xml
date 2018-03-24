@@ -24,10 +24,12 @@
     FROM meeting
     WHERE is_del = '0'
     ORDER BY m_id DESC
-    limit #{offset}, #{limit}
+    <if test="offset != null">
+      limit #{offset}, #{limit}
+    </if>
   </select>
   <select id="count" resultType="java.lang.Integer">
-    SELECT count(m_id) FROM meeting
+    SELECT count(m_id) FROM meeting WHERE is_del = '0'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from meeting

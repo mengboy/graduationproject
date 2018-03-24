@@ -4,6 +4,7 @@ import com.bootdo.common.utils.Query;
 import com.bootdo.type.domain.Meeting;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MeetingMapper {
     int deleteByPrimaryKey(Integer mId);
@@ -20,7 +21,7 @@ public interface MeetingMapper {
 
     void upDelStatus(Integer mId);
 
-    List<Meeting> list(Query query);
+    List<Meeting> list(Map map);
 
     int count();
 }
