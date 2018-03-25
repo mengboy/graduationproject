@@ -37,7 +37,7 @@
     limit #{offset}, #{limit}
   </select>
   <select id="count" resultType="java.lang.Integer">
-    SELECT count(cid) FROM certificate
+    SELECT count(cid) FROM certificate WHERE is_del = '0'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from certificate

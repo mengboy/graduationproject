@@ -101,7 +101,7 @@
                         <div class="col-sm-4">
                             <input id="lefile" type="file" style="display:none">
                             <div class="input-append">
-                                <input id="photoCover" class="input-large" type="text" style="height:30px;">
+                                <input id="photoCover" class="input-large" type="text" style="height:30px;" th:value="${certificate.headpic}">
                                 <span class="btn" onclick="$('input[id=lefile]').click();">修改证件照片</span>
                             </div>
                         </div>
@@ -184,6 +184,27 @@
         });
     }
 
+    var imageUrlPrefix = "http://localhost:8080";
+
+    function showImage(imageUrl) {
+        var content = '<div>'
+            + '<img style="width: auto; height: auto; max-width: 100%; max-height: 100%;  " src="' + imageUrl + '"/>'
+            + '</div>';
+        layer.open({
+            type: 1,
+            title: '证件图片',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['800px', '500px'],
+            content: content
+        });
+    }
+
+    $("#photoCover").mouseover(function () {
+        var imageUrl = imageUrlPrefix + $(this).val();
+        showImage(imageUrl);
+    });
+
 
     $('input[id=lefile]').change(function() {
         $('#photoCover').val($(this).val());
@@ -205,6 +226,7 @@
             success : function(r) {
                 if (r.code == 0) {
                     $("#headpic").val(r.url);
+                    $("#photoCover").val(r.url);
                 } else {
                     alert(r.msg)
                 }
@@ -212,6 +234,8 @@
             }
         });
     });
+
+
 </script>
 
 
