@@ -72,7 +72,7 @@ public class DruidDBConfig {
     @Value("${spring.datasource.filters}")
     private String filters;
 
-    @Value("{spring.datasource.connectionProperties}")
+    @Value("${spring.datasource.connectionProperties}")
     private String connectionProperties;
 
     @Bean(initMethod = "init", destroyMethod = "close")   //声明其为Bean实例

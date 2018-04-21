@@ -1,6 +1,7 @@
 package com.bigdata.content.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -18,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class BContentServiceImpl implements BContentService {
 	@Autowired
 	private BContentMapper bContentMapper;
+
+	@Value("${image.upload.dir}")
+	private String imageDir;
 	
 	@Override
 	public BContentDO get(Long cid){
@@ -67,12 +71,12 @@ public class BContentServiceImpl implements BContentService {
 		int len = imgName.length;
 		try {
 			if(len >= 2) {
-                StringBuilder path = new StringBuilder().append(this.getClass().getResource("/").toString().substring(5) + "static/img/blog/");
-                System.out.println(path);
+//                StringBuilder path = new StringBuilder().append(this.getClass().getResource("/").toString().substring(5) + "static/img/");
+
+				StringBuilder path = new StringBuilder().append(imageDir);
+				System.out.println(imageDir);
 				//获取输出流
-//				StringBuilder path = new StringBuilder().append("/Users/vector/IdeaProjects/spguide/target/classes/static/image/");
-//                File imgFile = new File("/Users/vector/IdeaProjects/wage/wage/src/main/webapp/wage/images/" + userId + "." + imgName[len - 1]);
-				File imgFile = new File(path.append(uuid).append(".").append(imgName[len - 1]).toString());
+  				File imgFile = new File(path.append(uuid).append(".").append(imgName[len - 1]).toString());
 				if(!imgFile.exists())
 				{
 					imgFile.createNewFile();
@@ -91,9 +95,10 @@ public class BContentServiceImpl implements BContentService {
 			}
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			return "文件不存在";
 		}
-		return "/img/blog/" + uuid + "." + imgName[len - 1];
+		return "/" + uuid + "." + imgName[len - 1];
 	}
 
 }
