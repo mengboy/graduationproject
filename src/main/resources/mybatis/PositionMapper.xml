@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bootdo.type.dao.PositionMapper">
+<mapper namespace="com.bigdata.content.dao.PositionMapper">
 
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Position">
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.Position">
     <id column="p_id" jdbcType="INTEGER" property="pId" />
     <result column="p_name" jdbcType="VARCHAR" property="pName" />
     <result column="jt_id" jdbcType="INTEGER" property="jtId" />
     <result column="p_work_place" jdbcType="VARCHAR" property="pWorkPlace" />
     <result column="create_date" jdbcType="DATE" property="createDate" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bootdo.type.domain.Position">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bigdata.content.domain.Position">
     <result column="p_desc" jdbcType="LONGVARCHAR" property="pDesc" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -26,7 +26,7 @@
     from position
     where p_id = #{pId,jdbcType=INTEGER}
   </select>
-    <select id="list" resultType="com.bootdo.type.domain.Position">
+    <select id="list" resultType="com.bigdata.content.domain.Position">
       select * from position WHERE 1 = 1
       <if test="offset != null">
         limit #{offset}, #{limit}
@@ -39,20 +39,20 @@
   <select id="getWorkPlaces" resultType="java.lang.String">
     SELECT p_work_place FROM  position WHERE jt_id = #{typeId} GROUP BY p_work_place
   </select>
-  <select id="getPositionByPlace" resultType="com.bootdo.type.domain.Position">
+  <select id="getPositionByPlace" resultType="com.bigdata.content.domain.Position">
     select * from position WHERE p_work_place = #{workPlace} and jt_id = #{typeId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from position
     where p_id = #{pId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.Position">
+  <insert id="insert" parameterType="com.bigdata.content.domain.Position">
     insert into position (p_id, p_name, jt_id, 
       p_work_place, p_desc, create_date)
     values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{jtId,jdbcType=INTEGER}, 
       #{pWorkPlace,jdbcType=VARCHAR}, #{pDesc,jdbcType=LONGVARCHAR}, #{createDate, jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Position">
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Position">
     insert into position
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pId != null">
@@ -95,7 +95,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Position">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.Position">
     update position
     <set>
       <if test="pName != null">
@@ -116,7 +116,7 @@
     </set>
     where p_id = #{pId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.Position">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.Position">
     update position
     set p_name = #{pName,jdbcType=VARCHAR},
       jt_id = #{jtId,jdbcType=INTEGER},
@@ -125,7 +125,7 @@
       create_date = #{createDate, jdbcType=DATE}
     where p_id = #{pId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Position">
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.Position">
     update position
     set p_name = #{pName,jdbcType=VARCHAR},
       jt_id = #{jtId,jdbcType=INTEGER},

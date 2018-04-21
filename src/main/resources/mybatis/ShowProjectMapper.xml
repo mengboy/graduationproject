@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.ShowProjectMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.ShowProject" >
+<mapper namespace="com.bigdata.content.dao.ShowProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.ShowProject" >
     <id column="spid" property="spid" jdbcType="INTEGER" />
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />
     <result column="rsd_id" property="rsdId" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.ShowProject" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.bigdata.content.domain.ShowProject" extends="BaseResultMap" >
     <result column="project_info" property="projectInfo" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -23,26 +23,26 @@
     from show_project
     where spid = #{spid,jdbcType=INTEGER}
   </select>
-    <select id="selectShowProjects" resultType="com.bootdo.type.domain.ShowProject">
+    <select id="selectShowProjects" resultType="com.bigdata.content.domain.ShowProject">
       SELECT * FROM show_project ORDER BY spid ASC limit #{offset}, #{limit}
     </select>
   <select id="count" resultType="java.lang.Integer">
     SELECT count(*) FROM show_project
   </select>
-    <select id="getShowProjectByRdID" resultType="com.bootdo.type.domain.ShowProject">
+    <select id="getShowProjectByRdID" resultType="com.bigdata.content.domain.ShowProject">
       SELECT * FROM show_project WHERE rsd_id = #{rdid, jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from show_project
     where spid = #{spid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.ShowProject" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.ShowProject" >
     insert into show_project (spid, project_name, rsd_id, 
       project_info)
     values (#{spid,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{rsdId,jdbcType=INTEGER}, 
       #{projectInfo,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.ShowProject" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.ShowProject" >
     insert into show_project
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="spid != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.ShowProject" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.ShowProject" >
     update show_project
     <set >
       <if test="projectName != null" >
@@ -88,14 +88,14 @@
     </set>
     where spid = #{spid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.ShowProject" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.ShowProject" >
     update show_project
     set project_name = #{projectName,jdbcType=VARCHAR},
       rsd_id = #{rsdId,jdbcType=INTEGER},
       project_info = #{projectInfo,jdbcType=LONGVARCHAR}
     where spid = #{spid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.ShowProject" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.ShowProject" >
     update show_project
     set project_name = #{projectName,jdbcType=VARCHAR},
       rsd_id = #{rsdId,jdbcType=INTEGER}

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <div id="exampleToolbar" role="group">
+                    <button shiro:hasPermission="content:signature:add" type="button" class="btn  btn-primary" id="add">
+                        <i class="fa fa-plus" aria-hidden="true"></i>添加
+                    </button>
+                    <input type="text" style="display: none" value="meeting" id="btnId">
+                    <button shiro:hasPermission="content:signature:signature" type="button" class="btn  btn-info" id="meeting">
+                        <i class="fa fa-bars" aria-hidden="true"></i>会议
+                    </button>
+                    <button shiro:hasPermission="content:signature:signature" type="button" class="btn  btn-default"
+                            id="meetingPeople">
+                        <i class="fa fa-info" aria-hidden="true"></i>参会人员
+                    </button>
+                    <button shiro:hasPermission="content:signature:batchRemove" type="button" class="btn  btn-danger"
+                            onclick="batchRemove()">
+                        <i class="fa fa-trash" aria-hidden="true"></i>删除
+                    </button>
+                </div>
+                <table id="exampleTable" data-mobile-responsive="true">
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+    <div>
+        <script type="text/javascript">
+            var s_edit_h = 'hidden';
+            var s_remove_h = 'hidden';
+        </script>
+    </div>
+    <div shiro:hasPermission="content:signature:edit">
+        <script type="text/javascript">
+            s_edit_h = '';
+        </script>
+    </div>
+    <div shiro:hasPermission="content:signature:remove">
+        <script type="text/javascript">
+            var s_remove_h = '';
+        </script>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+
+
+<script type="text/javascript" src="/js/laydate/laydate.js"></script>
+
+<script>
+    var prefix = "/content/signature";
+    $(function() {
+        meeting();
+    });
+
+    function meeting() {
+        $('#exampleTable')
+            .bootstrapTable(
+                {
+                    method : 'get', // 服务器数据的请求方式 get or post
+                    url : prefix + "/selectMeetingPages", // 服务器数据的加载地址
+                    // showRefresh : true,
+                    // showToggle : true,
+                    // showColumns : true,
+                    iconSize : 'outline',
+                    toolbar : '#exampleToolbar',
+                    striped : true, // 设置为true会有隔行变色效果
+                    dataType : "json", // 服务器返回的数据类型
+                    pagination : true, // 设置为true会在底部显示分页条
+                    // queryParamsType : "limit",
+                    // //设置为limit则会发送符合RESTFull格式的参数
+                    singleSelect : false, // 设置为true将禁止多选
+                    // contentType : "application/x-www-form-urlencoded",
+                    // //发送到服务器的数据编码类型
+                    pageSize : 10, // 如果设置了分页，每页数据条数
+                    pageNumber : 1, // 如果设置了分布，首页页码
+                    // search : true, // 是否显示搜索框
+                    showColumns : false, // 是否显示内容下拉框（选择显示的列）
+                    sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者
+                    // "server"
+                    queryParams : function(params) {
+                        return {
+                            // 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
+                            limit : params.limit,
+                            offset : params.offset
+                            // name:$('#searchName').val(),
+                            // username:$('#searchName').val()
+                        };
+                    },
+                    // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
+                    // queryParamsType = 'limit' ,返回参数必须包含
+                    // limit, offset, search, sort, order 否则, 需要包含:
+                    // pageSize, pageNumber, searchText, sortName,
+                    // sortOrder.
+                    // 返回false将会终止请求
+                    columns : [
+                        {
+                            checkbox : true
+                        },
+                        {
+                            visible : false,
+                            field : 'mId'
+                        },
+                        {
+                            field : 'sn',
+                            title : '序号'
+                        },
+                        {
+                            field : 'meeting',
+                            title : '会议名称'
+                        },
+                        {
+                            field : 'meetingtime',
+                            title : '会议时间'
+                        },
+                        {
+                            field : 'meetingaddr',
+                            title : '会议地址'
+                        },
+
+                        {
+                            title : '操作',
+                            field : 'id',
+                            align : 'center',
+                            formatter : function(value, row, index) {
+                                var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="editMeeting(\''
+                                    + row.mId
+                                    + '\')"><i class="fa fa-edit"></i></a> ';
+                                var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="removeMeeting(\''
+                                    + row.mId
+                                    + '\')"><i class="fa fa-remove"></i></a> ';
+                                var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+                                    + row.mId
+                                    + '\')"><i class="fa fa-key"></i></a> ';
+                                return e + d;
+                            }
+                        } ]
+                });
+    }
+
+
+    function removeMeeting(id) {
+        layer.confirm('确定要删除选中的记录？', {
+            btn : [ '确定', '取消' ]
+        }, function() {
+            $.ajax({
+                url : prefix + "/delMeeting",
+                type : "post",
+                data : {
+                    'id' : id
+                },
+                success : function(r) {
+                    if (r.code == 0) {
+                        layer.msg(r.msg);
+                        reLoad();
+                    } else {
+                        layer.msg(r.msg);
+                    }
+                }
+            });
+        })
+    }
+
+    function meetingPeople() {
+        $('#exampleTable')
+            .bootstrapTable(
+                {
+                    method : 'get', // 服务器数据的请求方式 get or post
+                    url : prefix + "/selectMeetingPeoplePages", // 服务器数据的加载地址
+                    // showRefresh : true,
+                    // showToggle : true,
+                    // showColumns : true,
+                    iconSize : 'outline',
+                    toolbar : '#exampleToolbar',
+                    striped : true, // 设置为true会有隔行变色效果
+                    dataType : "json", // 服务器返回的数据类型
+                    pagination : true, // 设置为true会在底部显示分页条
+                    // queryParamsType : "limit",
+                    // //设置为limit则会发送符合RESTFull格式的参数
+                    singleSelect : false, // 设置为true将禁止多选
+                    // contentType : "application/x-www-form-urlencoded",
+                    // //发送到服务器的数据编码类型
+                    pageSize : 10, // 如果设置了分页，每页数据条数
+                    pageNumber : 1, // 如果设置了分布，首页页码
+                    // search : true, // 是否显示搜索框
+                    showColumns : false, // 是否显示内容下拉框（选择显示的列）
+                    sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者
+                    // "server"
+                    queryParams : function(params) {
+                        return {
+                            // 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
+                            limit : params.limit,
+                            offset : params.offset
+                            // name:$('#searchName').val(),
+                            // username:$('#searchName').val()
+                        };
+                    },
+                    // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
+                    // queryParamsType = 'limit' ,返回参数必须包含
+                    // limit, offset, search, sort, order 否则, 需要包含:
+                    // pageSize, pageNumber, searchText, sortName,
+                    // sortOrder.
+                    // 返回false将会终止请求
+                    columns : [
+                        {
+                            checkbox : true
+                        },
+                        {
+                            visible : false,
+                            field : 'mpId'
+                        },
+                        {
+                            field : 'sn',
+                            title : '序号'
+                        },
+                        {
+                            field : 'truename',
+                            title : '姓名'
+                        },
+                        {
+                            field : 'company',
+                            title : '公司单位'
+                        },
+                        {
+                            field : 'position',
+                            title : '职称'
+                        },
+                        {
+                            field : 'meeting',
+                            title : '签到会议'
+                        },
+                        {
+                            title : '操作',
+                            field : 'id',
+                            align : 'center',
+                            formatter : function(value, row, index) {
+                                var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="editMeetingPeople(\''
+                                    + row.mpId
+                                    + '\')"><i class="fa fa-edit"></i></a> ';
+                                var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="removeMeetingPeople(\''
+                                    + row.mpId
+                                    + '\')"><i class="fa fa-remove"></i></a> ';
+                                var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+                                    + row.mpId
+                                    + '\')"><i class="fa fa-key"></i></a> ';
+                                return e + d;
+                            }
+                        } ]
+                });
+    }
+
+
+    //表格刷新
+    function reLoad() {
+        $('#exampleTable').bootstrapTable('refresh');
+    }
+
+    //清除原有表格
+    function destroy() {
+        $('#exampleTable').bootstrapTable('destroy');
+    }
+
+
+    function addMeeting() {
+        var content = '<form id="addMeeting">'
+            + '<div class="form-group">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">会议名称:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meeting" name="meeting" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议时间:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meetingtime" name="meetingtime" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议地点:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meetingaddr" name="meetingaddr" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >留言备注:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="remark" name="remark" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+            + '</form>';
+        layer.open({
+            type: 1,
+            title: '添加会议',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['700px', '300px'],
+            content: content,
+            btn: ['添加', '取消'],
+            yes: function(){
+                $.ajax({
+                    url : prefix + "/saveMeeting",
+                    type : "POST",
+                    data : $("#addMeeting").serialize(),
+                    success : function(r) {
+                        if (r.code == 0) {
+                            layer.msg(r.msg);
+                            reLoad();
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+            },
+            btn2: function()
+            {
+                layer.close();
+            },
+            success: function(layero){
+                layero.find('.layui-layer-btn').css('text-align', 'center');
+                layero.find('.layui-layer-btn').css('padding-top', '0px');
+                laydate.render({
+                    elem: '#meetingtime', //指定元素
+                    type: 'datetime'
+                });
+            }
+        });
+    }
+
+    function editMeeting(mid) {
+        var content = '<form id="editMeeting">'
+            + '<div class="form-group">'
+            + '<input id="mId" name="mId" class="form-control" type="text" value="" style="display: none"/>'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">会议名称:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meet" name="meeting" class="form-control" type="text" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议时间:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meetingtime" name="meetingtime" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >会议地点:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="meetingaddr" name="meetingaddr" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+
+            + '<br>'
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >留言备注:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="remark" name="remark" class="form-control" type="text" value="" />'
+            + '</div>'
+            +'</div>'
+            + '</form>';
+        layer.open({
+            type: 1,
+            title: '编辑会议',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['700px', '300px'],
+            content: content,
+            btn: ['保存', '取消'],
+            yes: function(){
+                $.ajax({
+                    url : prefix + "/saveMeeting",
+                    type : "POST",
+                    data : $("#editMeeting").serialize(),
+                    success : function(r) {
+                        if (r.code == 0) {
+                            layer.msg(r.msg);
+                            reLoad();
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+            },
+            btn2: function()
+            {
+                layer.close();
+            },
+            success: function(layero){
+
+                $.ajax({
+                    url : prefix + "/selectMeetingById",
+                    type : "POST",
+                    data : {
+                        "id":mid
+                    },
+                    success : function(r) {
+                        if (r.code == 0) {
+                            $("#mId").val(r.result.mId);
+                            $("#meet").val(r.result['meeting']);
+                            $("#meetingtime").val(r.result['meetingtime']);
+                            $("#meetingaddr").val(r.result.meetingaddr);
+                            $("#remark").val(r.result.remark);
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+
+                layero.find('.layui-layer-btn').css('text-align', 'center');
+                layero.find('.layui-layer-btn').css('padding-top', '0px');
+
+
+                laydate.render({
+                    elem: '#meetingtime', //指定元素
+                    type: 'datetime'
+                });
+
+            }
+        });
+    }
+
+
+
+    // <label class="col-sm-3 control-label">类型：</label>
+    // <div class="col-sm-4">
+    //     <select id="types" class="selectpicker form-control" data-live-search="true" title="选择消息类型">
+    //     <option value="0" selected="selected">请选择消息类型</option>
+    //     </select>
+    //     </div>
+
+    /**
+     * 添加示范项目
+     */
+    function addMeetingPeople() {
+        var content = '<form id="addMeetingPeople">'
+
+            + '<div class="form-group">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">姓名:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="truename" name="truename" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            +'<br>'
+
+
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >联系电话:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="telephone" name="telephone" class="form-control" type="text" value="" />'
+            + '</div>' +'</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">公司单位:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="company" name="company" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">职位描述:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="position" name="position" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">提交时间:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="registertime" name="registertime" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">电子邮箱:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="email" name="email" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 8px;">会议名称:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="display: none" id="mId" name="mId"/>'
+            + '<select style="margin-top: 8px;" id="types" class="selectpicker form-control" data-live-search="true" title="选择招聘类型">'
+            + '<option value="0" selected="selected">选择会议</option>'
+            + '</select>'
+            + '</div>'
+            + '</div>'
+
+            + '</form>';
+        layer.open({
+            type: 1,
+            title: '会议签到报名',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['700px', '450px'],
+            content: content,
+            btn: ['添加', '取消'],
+            yes: function(){
+                $.ajax({
+                    url : prefix + "/saveMeetingPeople",
+                    type : "POST",
+                    data : $("#addMeetingPeople").serialize(),
+                    success : function(r) {
+                        if (r.code == 0) {
+                            layer.msg(r.msg);
+                            reLoad();
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+            },
+            btn2: function()
+            {
+                layer.close();
+            },
+            success: function(layero){
+                layero.find('.layui-layer-btn').css('text-align', 'center');
+                layero.find('.layui-layer-btn').css('padding-top', '0px');
+
+
+                laydate.render({
+                    elem: '#registertime', //指定元素
+                    type: 'datetime'
+                });
+
+                $.ajax({
+                    url : prefix + "/listMeeting",
+                    type : "GET",
+                    data : "",
+                    success : function(r) {
+                        if (r.code == 0) {
+                            for(let i = 0; i < r.results.length; i++){
+                                var meetName = r.results[i].meeting;
+                                var mId = r.results[i].mId;
+                                var option = "<option value='" + mId + "'>" + meetName + "</option>";
+                                $("#types").append(option);
+                            }
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+
+                $("#types").change(function () {
+                    var val = $(this).find("option:selected").val();
+                    $("#mId").val(val);
+                });
+            }
+        });
+    }
+
+
+
+    var add = {
+        meeting: function(){
+            addMeeting();
+        },
+        meetingPeople: function () {
+            addMeetingPeople();
+        }
+    };
+
+    $("#add").click(function () {
+        var btnId = $("#btnId").val();
+        add["" +btnId+ ""]();
+    });
+
+
+    /**
+     * 编辑
+     * @param mpid
+     */
+
+    function editMeetingPeople(mpid) {
+        var content = '<form id="editMeetingPeople">'
+
+            + '<input id="mpId" name="mpId" class="form-control" type="text" value="" style="display: none"/>'
+            + '<div class="form-group">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;">姓名:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="truename" name="truename" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            +'<br>'
+
+
+            + '<div class="form-group" style="margin-top: 30px">'
+            + '<label class="col-sm-3 control-label" style="text-align:right;"  >联系电话:</label>'
+            + '<div class="col-sm-8">'
+            + '<input id="telephone" name="telephone" class="form-control" type="text" value="" />'
+            + '</div>' +'</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">公司单位:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="company" name="company" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">职位描述:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="position" name="position" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">提交时间:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="registertime" name="registertime" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 5px;">电子邮箱:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="margin-top: 10px" id="email" name="email" class="form-control" type="text" value="" />'
+            + '</div>'
+            + '</div>'
+            + '<br>'
+
+            + '<div class="form-group" >'
+            + '<label  class="col-sm-3 control-label" style="text-align:right;margin-top: 8px;">会议名称:</label>'
+            + '<div class="col-sm-8">'
+            + '<input style="display: none" id="mId" name="mId"/>'
+            + '<select style="margin-top: 8px;" id="types" class="selectpicker form-control" data-live-search="true" title="选择招聘类型">'
+            + '<option value="0" selected="selected">选择会议</option>'
+            + '</select>'
+            + '</div>'
+            + '</div>'
+
+            + '</form>';
+        layer.open({
+            type: 1,
+            title: '会议签到报名',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['700px', '450px'],
+            content: content,
+            btn: ['保存', '取消'],
+            yes: function(){
+                $.ajax({
+                    url : prefix + "/saveMeetingPeople",
+                    type : "POST",
+                    data : $("#editMeetingPeople").serialize(),
+                    success : function(r) {
+                        if (r.code == 0) {
+                            layer.msg(r.msg);
+                            reLoad();
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+            },
+            btn2: function()
+            {
+                layer.close();
+            },
+            success: function(layero){
+                layero.find('.layui-layer-btn').css('text-align', 'center');
+                layero.find('.layui-layer-btn').css('padding-top', '0px');
+
+
+                laydate.render({
+                    elem: '#registertime', //指定元素
+                    type: 'datetime'
+                });
+                $.ajax({
+                    url : prefix + "/selectMeetingPeopleById",
+                    type : "POST",
+                    data : {
+                        "id": mpid
+                    },
+                    success : function(r) {
+                        if (r.code == 0) {
+                            $("#mpId").val(r.result.mpId);
+                            $("#truename").val(r.result.truename);
+                            $("#telephone").val(r.result.telephone);
+                            $("#company").val(r.result.company);
+                            $("#position").val(r.result.position);
+                            $("#registertime").val(r.result.registertime);
+                            $("#email").val(r.result.email);
+                            $("#mId").val(r.result.mId);
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+
+                $.ajax({
+                    url : prefix + "/listMeeting",
+                    type : "GET",
+                    data : "",
+                    success : function(r) {
+                        if (r.code == 0) {
+                            for(let i = 0; i < r.results.length; i++){
+                                var meetName = r.results[i].meeting;
+                                var mId = r.results[i].mId;
+                                var option = "<option value='" + mId + "'>" + meetName + "</option>";
+                                $("#types").append(option);
+                            }
+                            var selectJtId = $("#mId").val();
+
+                            if(selectJtId > 0){
+                                var option = "option[value= "  + selectJtId + "]";
+                                $("#types").find(option).attr("selected",true);
+                            }else {
+                                $("#types").find("option[value='0']").attr("selected",true);
+                            }
+
+                        } else {
+                            layer.msg(r.msg);
+                        }
+                    }
+                });
+
+                $("#types").change(function () {
+                    var val = $(this).find("option:selected").val();
+                    $("#mId").val(val);
+                });
+            }
+        });
+    }
+
+    function removeMeetingPeople(id) {
+        layer.confirm('确定要删除选中的记录？', {
+            btn : [ '确定', '取消' ]
+        }, function() {
+            $.ajax({
+                url : prefix + "/delMeetingPeople",
+                type : "post",
+                data : {
+                    'id' : id
+                },
+                success : function(r) {
+                    if (r.code == 0) {
+                        layer.msg(r.msg);
+                        reLoad();
+                    } else {
+                        layer.msg(r.msg);
+                    }
+                }
+            });
+        })
+    }
+
+    function resetPwd(id) {
+    }
+    function batchRemove() {
+        var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+        if (rows.length == 0) {
+            layer.msg("请选择要删除的数据");
+            return;
+        }
+        layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {
+            btn : [ '确定', '取消' ]
+            // 按钮
+        }, function() {
+            var ids = new Array();
+            // 遍历所有选择的行数据，取每条数据对应的ID
+            $.each(rows, function(i, row) {
+                ids[i] = row['did'];
+            });
+            $.ajax({
+                type : 'POST',
+                data : {
+                    "ids" : ids
+                },
+                url : prefix + '/batchRemove',
+                success : function(r) {
+                    if (r.code == 0) {
+                        layer.msg(r.msg);
+                        reLoad();
+                    } else {
+                        layer.msg(r.msg);
+                    }
+                }
+            });
+        }, function() {
+
+        });
+    }
+
+    //修改button class属性
+    function changeBtnClass(button) {
+
+        var checkedBtn = $("#btnId").val();
+        $("#" + checkedBtn + "").removeAttrs("class");
+        $("#" + checkedBtn + "").addClass("btn btn-default");
+
+        $(button).removeAttrs("class");
+        $(button).addClass("btn btn-info");
+        $("#btnId").val($(button).attr("id"));
+    }
+
+    $("#meeting").click(function () {
+        changeBtnClass(this);
+        destroy();
+        meeting();
+    });
+
+    $("#meetingPeople").click(function () {
+        changeBtnClass(this);
+        destroy();
+        meetingPeople();
+    });
+
+</script>
+</body>
+</html>
+</html>

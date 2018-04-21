@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.AboutMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.About" >
+<mapper namespace="com.bigdata.content.dao.AboutMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.About" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
     <result column="work_time" property="workTime" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.About" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.bigdata.content.domain.About" extends="BaseResultMap" >
     <result column="desrc" property="desrc" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -25,14 +25,14 @@
     from about
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="select" resultType="com.bootdo.type.domain.About">
+    <select id="select" resultType="com.bigdata.content.domain.About">
       SELECT  * from about limit 1
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from about
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.About" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.About" >
     insert into about (id, address, phone, 
       zip_code, work_time, desrc
       )
@@ -40,7 +40,7 @@
       #{zipCode,jdbcType=VARCHAR}, #{workTime,jdbcType=VARCHAR}, #{desrc,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.About" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.About" >
     insert into about
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -83,7 +83,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.About" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.About" >
     update about
     <set >
       <if test="address != null" >
@@ -104,7 +104,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.About" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.About" >
     update about
     set address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -113,7 +113,7 @@
       desrc = #{desrc,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.About" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.About" >
     update about
     set address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},

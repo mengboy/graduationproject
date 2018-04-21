@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.DiscussSpaceMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.DiscussSpace" >
+<mapper namespace="com.bigdata.content.dao.DiscussSpaceMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.DiscussSpace" >
     <id column="dsid" property="dsid" jdbcType="INTEGER" />
     <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
     <result column="space_url" property="spaceUrl" jdbcType="VARCHAR" />
@@ -17,26 +17,26 @@
     from discuss_space
     where dsid = #{dsid,jdbcType=INTEGER}
   </select>
-    <select id="list" resultType="com.bootdo.type.domain.DiscussSpace">
+    <select id="list" resultType="com.bigdata.content.domain.DiscussSpace">
       select * from discuss_space ORDER BY dsid ASC limit #{offset}, #{limit};
     </select>
   <select id="count" resultType="java.lang.Integer">
     SELECT count(*) FROM discuss_space
   </select>
-    <select id="getDiscussSpace" resultType="com.bootdo.type.domain.DiscussSpace">
+    <select id="getDiscussSpace" resultType="com.bigdata.content.domain.DiscussSpace">
       select * from discuss_space WHERE rsd_id = #{rdid, jdbcType=INTEGER};
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from discuss_space
     where dsid = #{dsid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.DiscussSpace" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.DiscussSpace" >
     insert into discuss_space (dsid, image_url, space_url, 
       description, rsd_id)
     values (#{dsid,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, #{spaceUrl,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{rsdId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.DiscussSpace" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.DiscussSpace" >
     insert into discuss_space
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="dsid != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.DiscussSpace" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.DiscussSpace" >
     update discuss_space
     <set >
       <if test="imageUrl != null" >
@@ -91,7 +91,7 @@
     </set>
     where dsid = #{dsid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.DiscussSpace" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.DiscussSpace" >
     update discuss_space
     set image_url = #{imageUrl,jdbcType=VARCHAR},
       space_url = #{spaceUrl,jdbcType=VARCHAR},

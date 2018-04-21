@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.SolutionTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.SolutionType" >
+<mapper namespace="com.bigdata.content.dao.SolutionTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.SolutionType" >
     <id column="stid" property="stid" jdbcType="INTEGER" />
     <result column="solution_type" property="solutionType" jdbcType="VARCHAR" />
   </resultMap>
@@ -14,24 +14,24 @@
     from solution_type
     where stid = #{stid,jdbcType=INTEGER}
   </select>
-    <select id="list" resultType="com.bootdo.type.domain.SolutionType">
+    <select id="list" resultType="com.bigdata.content.domain.SolutionType">
       SELECT * FROM solution_type ORDER BY stid ASC limit #{offset}, #{limit}
     </select>
   <select id="count" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM solution_type
   </select>
-  <select id="solutionTypes" resultType="com.bootdo.type.domain.SolutionType">
+  <select id="solutionTypes" resultType="com.bigdata.content.domain.SolutionType">
     SELECT * FROM solution_type
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from solution_type
     where stid = #{stid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.SolutionType" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.SolutionType" >
     insert into solution_type (stid, solution_type)
     values (#{stid,jdbcType=INTEGER}, #{solutionType,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.SolutionType" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.SolutionType" >
     insert into solution_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="stid != null" >
@@ -50,7 +50,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.SolutionType" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.SolutionType" >
     update solution_type
     <set >
       <if test="solutionType != null" >
@@ -59,7 +59,7 @@
     </set>
     where stid = #{stid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.SolutionType" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.SolutionType" >
     update solution_type
     set solution_type = #{solutionType,jdbcType=VARCHAR}
     where stid = #{stid,jdbcType=INTEGER}

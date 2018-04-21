@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.JobTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.JobType" >
+<mapper namespace="com.bigdata.content.dao.JobTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.JobType" >
     <id column="jt_id" property="jtId" jdbcType="INTEGER" />
     <result column="jt_name" property="jtName" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.JobType" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.bigdata.content.domain.JobType" extends="BaseResultMap" >
     <result column="jt_desc" property="jtDesc" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -22,7 +22,7 @@
     from job_type
     where jt_id = #{jtId,jdbcType=INTEGER}
   </select>
-    <select id="list" resultType="com.bootdo.type.domain.JobType">
+    <select id="list" resultType="com.bigdata.content.domain.JobType">
       SELECT * FROM job_type WHERE 1 = 1
       <if test="offset != null">
         limit #{offset}, #{limit}
@@ -35,13 +35,13 @@
     delete from job_type
     where jt_id = #{jtId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.JobType" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.JobType" >
     insert into job_type (jt_id, jt_name, jt_desc
       )
     values (#{jtId,jdbcType=INTEGER}, #{jtName,jdbcType=VARCHAR}, #{jtDesc,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.JobType" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.JobType" >
     insert into job_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="jtId != null" >
@@ -66,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.JobType" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.JobType" >
     update job_type
     <set >
       <if test="jtName != null" >
@@ -78,13 +78,13 @@
     </set>
     where jt_id = #{jtId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.JobType" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.JobType" >
     update job_type
     set jt_name = #{jtName,jdbcType=VARCHAR},
       jt_desc = #{jtDesc,jdbcType=LONGVARCHAR}
     where jt_id = #{jtId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.JobType" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.JobType" >
     update job_type
     set jt_name = #{jtName,jdbcType=VARCHAR}
     where jt_id = #{jtId,jdbcType=INTEGER}

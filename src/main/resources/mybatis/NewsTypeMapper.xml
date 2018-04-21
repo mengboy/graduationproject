@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.NewsTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.NewsType" >
+<mapper namespace="com.bigdata.content.dao.NewsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.NewsType" >
     <id column="nt_id" property="ntId" jdbcType="INTEGER" />
     <result column="type_name" property="typeName" jdbcType="VARCHAR" />
   </resultMap>
@@ -20,18 +20,18 @@
   <select id="count" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM news_type
   </select>
-  <select id="getTypes" resultType="com.bootdo.type.domain.NewsType">
+  <select id="getTypes" resultType="com.bigdata.content.domain.NewsType">
     select * from news_type;
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from news_type
     where nt_id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.NewsType" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.NewsType" >
     insert into news_type (nt_id, type_name)
     values (#{ntId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.NewsType" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.NewsType" >
     insert into news_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ntId != null" >
@@ -50,7 +50,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.NewsType" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.NewsType" >
     update news_type
     <set >
       <if test="typeName != null" >
@@ -59,7 +59,7 @@
     </set>
     where nt_id = #{ntId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.NewsType" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.NewsType" >
     update news_type
     set type_name = #{typeName,jdbcType=VARCHAR}
     where nt_id = #{ntId,jdbcType=INTEGER}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.SignatureMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Signature" >
+<mapper namespace="com.bigdata.content.dao.SignatureMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.Signature" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="truename" property="truename" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
     <select id="count" resultType="java.lang.Integer">
       SELECT count(id) FROM signature
     </select>
-  <select id="list" resultType="com.bootdo.type.domain.Signature">
+  <select id="list" resultType="com.bigdata.content.domain.Signature">
     SELECT
     <include refid="Base_Column_List"/>
     FROM signature
@@ -39,7 +39,7 @@
     delete from signature
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.Signature" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.Signature" >
     insert into signature (id, truename, telephone, 
       company, position, registertime, 
       email, meeting, meetingtime, 
@@ -51,7 +51,7 @@
       #{meetingaddr,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Signature" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Signature" >
     insert into signature
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -130,7 +130,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Signature" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.Signature" >
     update signature
     <set >
       <if test="truename != null" >
@@ -169,7 +169,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Signature" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.Signature" >
     update signature
     set truename = #{truename,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},

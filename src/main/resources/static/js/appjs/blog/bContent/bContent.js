@@ -1,4 +1,4 @@
-var prefix = "/blog/bContent"
+var prefix = "/content/bContent"
 $(function() {
     load();
 });

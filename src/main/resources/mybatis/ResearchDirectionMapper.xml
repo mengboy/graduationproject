@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.ResearchDirectionMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.ResearchDirection" >
+<mapper namespace="com.bigdata.content.dao.ResearchDirectionMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.ResearchDirection" >
     <id column="did" property="did" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.ResearchDirection" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.bigdata.content.domain.ResearchDirection" extends="BaseResultMap" >
     <result column="overview" property="overview" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -22,13 +22,13 @@
     from research_direction
     where did = #{did,jdbcType=INTEGER}
   </select>
-    <select id="list" resultType="com.bootdo.type.domain.ResearchDirection">
+    <select id="list" resultType="com.bigdata.content.domain.ResearchDirection">
       SELECT * FROM research_direction ORDER BY did ASC limit #{offset}, #{limit}
     </select>
   <select id="count" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM research_direction
   </select>
-  <select id="getDirections" resultType="com.bootdo.type.domain.ResearchDirection">
+  <select id="getDirections" resultType="com.bigdata.content.domain.ResearchDirection">
     select * from research_direction
   </select>
 
@@ -36,13 +36,13 @@
     delete from research_direction
     where did = #{did,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.ResearchDirection" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.ResearchDirection" >
     insert into research_direction (did, name, overview
       )
     values (#{did,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{overview,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.ResearchDirection" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.ResearchDirection" >
     insert into research_direction
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="did != null" >
@@ -67,7 +67,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.ResearchDirection" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.ResearchDirection" >
     update research_direction
     <set >
       <if test="name != null" >
@@ -79,13 +79,13 @@
     </set>
     where did = #{did,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.ResearchDirection" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.ResearchDirection" >
     update research_direction
     set name = #{name,jdbcType=VARCHAR},
       overview = #{overview,jdbcType=LONGVARCHAR}
     where did = #{did,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.ResearchDirection" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.ResearchDirection" >
     update research_direction
     set name = #{name,jdbcType=VARCHAR}
     where did = #{did,jdbcType=INTEGER}

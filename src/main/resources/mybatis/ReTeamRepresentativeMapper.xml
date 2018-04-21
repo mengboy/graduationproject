@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.ReTeamRepresentativeMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.ReTeamRepresentative" >
+<mapper namespace="com.bigdata.content.dao.ReTeamRepresentativeMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.ReTeamRepresentative" >
     <id column="rtrid" property="rtrid" jdbcType="INTEGER" />
     <result column="t_id" property="tId" jdbcType="INTEGER" />
     <result column="order_by" property="orderBy" jdbcType="INTEGER" />
@@ -16,10 +16,10 @@
     from re_team_representative
     where rtrid = #{rtrid,jdbcType=INTEGER}
   </select>
-    <select id="selectBytrid" resultType="com.bootdo.type.domain.ReTeamRepresentative">
+    <select id="selectBytrid" resultType="com.bigdata.content.domain.ReTeamRepresentative">
       SELECT * FROM re_team_representative WHERE represent_id = #{trid, jdbcType=INTEGER}
     </select>
-  <select id="selectByidAdntid" resultType="com.bootdo.type.domain.ReTeamRepresentative">
+  <select id="selectByidAdntid" resultType="com.bigdata.content.domain.ReTeamRepresentative">
     SELECT * FROM re_team_representative WHERE 1 = 1 AND t_id = #{trId}
   </select>
   <select id="getTrids" resultType="java.lang.Integer">
@@ -29,13 +29,13 @@
     delete from re_team_representative
     where rtrid = #{rtrid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.ReTeamRepresentative" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.ReTeamRepresentative" >
     insert into re_team_representative (rtrid, t_id, order_by, 
       represent_id)
     values (#{rtrid,jdbcType=INTEGER}, #{tId,jdbcType=INTEGER}, #{orderBy,jdbcType=INTEGER}, 
       #{representId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.ReTeamRepresentative" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.ReTeamRepresentative" >
     insert into re_team_representative
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="rtrid != null" >
@@ -66,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.ReTeamRepresentative" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.ReTeamRepresentative" >
     update re_team_representative
     <set >
       <if test="tId != null" >
@@ -81,7 +81,7 @@
     </set>
     where rtrid = #{rtrid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.ReTeamRepresentative" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.ReTeamRepresentative" >
     update re_team_representative
     set t_id = #{tId,jdbcType=INTEGER},
       order_by = #{orderBy,jdbcType=INTEGER},

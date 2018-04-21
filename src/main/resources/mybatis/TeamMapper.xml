@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.TeamMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Team" >
+<mapper namespace="com.bigdata.content.dao.TeamMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.Team" >
     <id column="tid" property="tid" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.Team" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.bigdata.content.domain.Team" extends="BaseResultMap" >
     <result column="p_info" property="pInfo" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -22,7 +22,7 @@
     from team
     where tid = #{tid,jdbcType=INTEGER}
   </select>
-  <select id="teams" resultType="com.bootdo.type.domain.Team">
+  <select id="teams" resultType="com.bigdata.content.domain.Team">
     SELECT * FROM team WHERE 1 = 1
     <if test="offset != null">
       limit #{offset}, #{limit}
@@ -35,13 +35,13 @@
     delete from team
     where tid = #{tid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.Team" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.Team" >
     insert into team (tid, name, p_info
       )
     values (#{tid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pInfo,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Team" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Team" >
     insert into team
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -66,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Team" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.Team" >
     update team
     <set >
       <if test="name != null" >
@@ -78,13 +78,13 @@
     </set>
     where tid = #{tid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.Team" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.Team" >
     update team
     set name = #{name,jdbcType=VARCHAR},
       p_info = #{pInfo,jdbcType=LONGVARCHAR}
     where tid = #{tid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Team" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.Team" >
     update team
     set name = #{name,jdbcType=VARCHAR}
     where tid = #{tid,jdbcType=INTEGER}

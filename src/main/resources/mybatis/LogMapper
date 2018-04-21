@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bootdo.common.dao.LogMapper">
-  <resultMap id="BaseResultMap" type="com.bootdo.system.domain.LogDO">
+<mapper namespace="com.bigdata.common.dao.LogMapper">
+  <resultMap id="BaseResultMap" type="com.bigdata.system.domain.LogDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -25,7 +25,7 @@
     delete from sys_log
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.system.domain.LogDO">
+  <insert id="insert" parameterType="com.bigdata.system.domain.LogDO">
     insert into sys_log (id, user_id, username, 
       operation, time, method, 
       params, ip, gmt_create
@@ -35,7 +35,7 @@
       #{params,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.system.domain.LogDO">
+  <insert id="insertSelective" parameterType="com.bigdata.system.domain.LogDO">
     insert into sys_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.system.domain.LogDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.system.domain.LogDO">
     update sys_log
     <set>
       <if test="userId != null">
@@ -126,7 +126,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.system.domain.LogDO">
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.system.domain.LogDO">
     update sys_log
     set user_id = #{userId,jdbcType=BIGINT},
       username = #{username,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.CertificateMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Certificate" >
+<mapper namespace="com.bigdata.content.dao.CertificateMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.Certificate" >
     <id column="cid" property="cid" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
     from certificate
     where cid = #{cid,jdbcType=INTEGER}
   </select>
-  <select id="list" resultType="com.bootdo.type.domain.Certificate">
+  <select id="list" resultType="com.bigdata.content.domain.Certificate">
     select
     <include refid="Base_Column_List"/>
     FROM certificate
@@ -43,7 +43,7 @@
     delete from certificate
     where cid = #{cid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.Certificate" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.Certificate" >
     insert into certificate (cid, name, sex, 
       idcard, number, organization, 
       ctype, signdate, headpic, 
@@ -57,7 +57,7 @@
       #{email,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Certificate" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Certificate" >
     insert into certificate
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cid != null" >
@@ -160,7 +160,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Certificate" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.Certificate" >
     update certificate
     <set >
       <if test="name != null" >
@@ -211,7 +211,7 @@
     </set>
     where cid = #{cid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Certificate" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.Certificate" >
     update certificate
     set name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},

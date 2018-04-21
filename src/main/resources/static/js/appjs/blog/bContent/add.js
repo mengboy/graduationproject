@@ -38,7 +38,7 @@ $().ready(function() {
     $.ajax({
         cache : true,
         type : "GET",
-        url : "/type/news/types",
+        url : "/content/news/types",
         data: "",
         async : false,
         error : function(request) {
@@ -77,7 +77,7 @@ function save(status) {
     $.ajax({
         cache : true,
         type : "POST",
-        url : "/blog/bContent/save",
+        url : "/content/bContent/save",
         data : $('#signupForm').serialize(),// 你的formid
         async : false,
         error : function(request) {
@@ -124,7 +124,7 @@ $('input[id=lefile]').change(function() {
     $.ajax({
         cache : false,
         type : "POST",
-        url : "/blog/bContent/upImage",
+        url : "/content/bContent/upImage",
         data :formData,
         async : false,
         dataType: "json",

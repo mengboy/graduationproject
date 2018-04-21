@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bootdo.type.dao.SolutionMapper" >
-  <resultMap id="BaseResultMap" type="com.bootdo.type.domain.Solution" >
+<mapper namespace="com.bigdata.content.dao.SolutionMapper" >
+  <resultMap id="BaseResultMap" type="com.bigdata.content.domain.Solution" >
     <id column="sid" property="sid" jdbcType="INTEGER" />
     <result column="stid" property="stid" jdbcType="INTEGER" />
     <result column="solution_title" property="solutionTitle" jdbcType="VARCHAR" />
     <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
     <result column="image_url" property="imageUrl" jdbcType="VARCHAR"/>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.bootdo.type.domain.Solution" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.bigdata.content.domain.Solution" extends="BaseResultMap" >
     <result column="solution_text" property="solutionText" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -25,7 +25,7 @@
     from solution
     where sid = #{sid,jdbcType=INTEGER}
   </select>
-    <select id="list" resultType="com.bootdo.type.domain.Solution">
+    <select id="list" resultType="com.bigdata.content.domain.Solution">
       SELECT * FROM solution WHERE 1 = 1
       <if test="stid != null"> AND stid = #{stid} </if>
       <if test="offset != null">order by sid asc limit #{offset}, #{limit}</if>
@@ -37,13 +37,13 @@
     delete from solution
     where sid = #{sid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bootdo.type.domain.Solution" >
+  <insert id="insert" parameterType="com.bigdata.content.domain.Solution" >
     insert into solution (sid, stid, solution_title, 
       publish_time, solution_text)
     values (#{sid,jdbcType=INTEGER}, #{stid,jdbcType=INTEGER}, #{solutionTitle,jdbcType=VARCHAR}, 
       #{publishTime,jdbcType=TIMESTAMP}, #{solutionText,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bootdo.type.domain.Solution" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Solution" >
     insert into solution
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -86,7 +86,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bootdo.type.domain.Solution" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigdata.content.domain.Solution" >
     update solution
     <set >
       <if test="stid != null" >
@@ -107,7 +107,7 @@
     </set>
     where sid = #{sid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.type.domain.Solution" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bigdata.content.domain.Solution" >
     update solution
     set stid = #{stid,jdbcType=INTEGER},
       solution_title = #{solutionTitle,jdbcType=VARCHAR},
@@ -116,7 +116,7 @@
       image_url = #{imageUrl,jdbcType=VARCHAR}
     where sid = #{sid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bootdo.type.domain.Solution" >
+  <update id="updateByPrimaryKey" parameterType="com.bigdata.content.domain.Solution" >
     update solution
     set stid = #{stid,jdbcType=INTEGER},
       solution_title = #{solutionTitle,jdbcType=VARCHAR},
