@@ -3,8 +3,10 @@ package com.bigdata.content.controller.news;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.bigdata.content.service.FileUploadService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class BContentController {
 	@Autowired
 	private BContentService bContentService;
+
+
+	@Autowired
+	private FileUploadService fileUploadService;
+
+	@Value("${image.upload.dir}")
+	private String imageDir;
 
 	@GetMapping()
 	@RequiresPermissions("content:bContent:bContent")
@@ -105,16 +114,6 @@ public class BContentController {
 	}
 
 
-//	@ResponseBody
-//	@RequestMapping("/upImage")
-//	public Object saveImage(@RequestParam("img") MultipartFile image){
-//		if(image != null){
-//			Map<String, Object> map = new HashMap<>();
-//			map.put("img", bContentService.saveImage(image));
-//			return R.ok(map);
-//		}
-//		return R.error();
-//	}
 
 	@ResponseBody
 	@RequestMapping(value = "/upImage")
@@ -128,7 +127,7 @@ public class BContentController {
 
 		String imgUrl = null;
 
-		imgUrl = bContentService.saveImage(file);
+		imgUrl = fileUploadService.saveFile(file, imgUrl);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("url", imgUrl);

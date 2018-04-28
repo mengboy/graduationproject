@@ -1,5 +1,6 @@
 package com.bigdata.content.service.impl;
 
+import com.bigdata.content.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class BContentServiceImpl implements BContentService {
 	@Autowired
 	private BContentMapper bContentMapper;
 
-	@Value("${image.upload.dir}")
-	private String imageDir;
+	@Autowired FileUploadService fileUploadService;
+
 	
 	@Override
 	public BContentDO get(Long cid){
@@ -63,42 +64,6 @@ public class BContentServiceImpl implements BContentService {
 		return bContentMapper.batchRemove(cids);
 	}
 
-	@Override
-	public String saveImage(MultipartFile file) {
-		String uuid = UUID.randomUUID().toString().replace("-", "");
 
-		String[] imgName = file.getOriginalFilename().split("\\.");
-		int len = imgName.length;
-		try {
-			if(len >= 2) {
-//                StringBuilder path = new StringBuilder().append(this.getClass().getResource("/").toString().substring(5) + "static/img/");
-
-				StringBuilder path = new StringBuilder().append(imageDir);
-				System.out.println(imageDir);
-				//获取输出流
-  				File imgFile = new File(path.append(uuid).append(".").append(imgName[len - 1]).toString());
-				if(!imgFile.exists())
-				{
-					imgFile.createNewFile();
-				}
-				OutputStream os = new FileOutputStream(imgFile);
-				//获取输入流 CommonsMultipartFile 中可以直接得到文件的流
-				InputStream is = file.getInputStream();
-				int temp;
-				//一个一个字节的读取并写入
-				while ((temp = is.read()) != (-1)) {
-					os.write(temp);
-				}
-				os.flush();
-				os.close();
-				is.close();
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "文件不存在";
-		}
-		return "/" + uuid + "." + imgName[len - 1];
-	}
 
 }

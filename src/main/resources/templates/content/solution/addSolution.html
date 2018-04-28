@@ -94,7 +94,7 @@
     var E = window.wangEditor;
     var editor = new E('#editor');
     // 或者 var editor = new E( document.getElementById('editor') )
-    editor.customConfig.uploadImgServer = '/content/bContent/upImage';
+    editor.customConfig.uploadImgServer = '/content/file/upImage';
     editor.customConfig.uploadImgTimeout = 30000;
     editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
     editor.customConfig.uploadFileName = 'img'
@@ -198,7 +198,7 @@
         $.ajax({
             cache : false,
             type : "POST",
-            url : "/content/bContent/upImage",
+            url : "/content/file/upImage",
             data :formData,
             async : false,
             dataType: "json",

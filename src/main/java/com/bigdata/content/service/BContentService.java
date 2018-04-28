@@ -31,5 +31,5 @@ public interface BContentService {
 	
 	int batchRemove(Long[] cids);
 
-	String saveImage(MultipartFile file);
+
 }

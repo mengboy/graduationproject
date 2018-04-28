@@ -11,7 +11,7 @@
 //                 data.append('img', files[0]);  //加载选中的第一张图片，并给这图片数据标记一个'image_up'的名称
 //                 //调用上传图片
 //                 $.ajax({
-//                     url: '/content/bContent/upImage',     //上传图片请求的路径
+//                     url: '/content/file/upImage',     //上传图片请求的路径
 //                     method: 'POST',            //方法
 //                     data: data,                 //数据
 //                     processData: false,        //告诉jQuery不要加工数据
@@ -124,7 +124,7 @@ $('input[id=lefile]').change(function() {
     $.ajax({
         cache : false,
         type : "POST",
-        url : "/content/bContent/upImage",
+        url : "/content/file/upImage",
         data :formData,
         async : false,
         dataType: "json",
