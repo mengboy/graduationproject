@@ -31,13 +31,6 @@ public class BContentController {
 	@Autowired
 	private BContentService bContentService;
 
-
-	@Autowired
-	private FileUploadService fileUploadService;
-
-	@Value("${image.upload.dir}")
-	private String imageDir;
-
 	@GetMapping()
 	@RequiresPermissions("content:bContent:bContent")
 	String BContent() {
@@ -114,26 +107,6 @@ public class BContentController {
 	}
 
 
-
-	@ResponseBody
-	@RequestMapping(value = "/upImage")
-	public Object uploadImg(@RequestParam("img") MultipartFile file){
-
-		System.out.println();
-
-		if(file == null){
-			return R.error();
-		}
-
-		String imgUrl = null;
-
-		imgUrl = fileUploadService.saveFile(file, imgUrl);
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("url", imgUrl);
-
-		return R.ok(map);
-	}
 
 
 	/**
