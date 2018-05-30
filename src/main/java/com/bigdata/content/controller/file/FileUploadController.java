@@ -33,7 +33,7 @@ public class FileUploadController {
 
         String imgUrl = null;
 
-        imgUrl = fileUploadService.saveFile(file, imgUrl);
+        imgUrl = fileUploadService.saveFile(file, imageDir);
 
         Map<String, Object> map = new HashMap<>();
         map.put("url", imgUrl);

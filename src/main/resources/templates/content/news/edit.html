@@ -213,6 +213,34 @@
             $("#link_div").hide();
         }
     });
+
+    $('input[id=lefile]').change(function() {
+        $('#photoCover').val($(this).val());
+        var formData = new FormData();
+        var img = $('#lefile')[0].files[0];
+        formData.append("img", img);
+        $.ajax({
+            cache : false,
+            type : "POST",
+            url : "/content/file/upImage",
+            data :formData,
+            async : false,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            error : function(request) {
+                parent.layer.alert("Connection error");
+            },
+            success : function(r) {
+                if (r.code == 0) {
+                    $("#imgUrl").val(r.url);
+                } else {
+                    alert(r.msg)
+                }
+
+            }
+        });
+    });
 </script>
 
 
