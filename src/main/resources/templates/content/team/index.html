@@ -37,12 +37,12 @@
             var s_remove_h = 'hidden';
         </script>
     </div>
-    <div shiro:hasPermission="content:direction:edit">
+    <div shiro:hasPermission="content:team:edit">
         <script type="text/javascript">
             s_edit_h = '';
         </script>
     </div>
-    <div shiro:hasPermission="content:direction:remove">
+    <div shiro:hasPermission="content:team:remove">
         <script type="text/javascript">
             var s_remove_h = '';
         </script>
@@ -209,7 +209,7 @@
                         },
                         {
                             field : 'sn',
-                            title : '序号',
+                            title : '序号'
                         },
                         {
                             field : 'name',

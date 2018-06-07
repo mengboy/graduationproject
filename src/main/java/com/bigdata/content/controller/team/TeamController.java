@@ -25,13 +25,11 @@ public class TeamController {
     TeamService teamService;
 
     @GetMapping("")
-    @RequiresPermissions("content:team:team")
-    String team(){
-        return "/content/team/team";
+    String index(){
+        return "content/team/index";
     }
 
     @GetMapping("/addTeam")
-    @RequiresPermissions("content:team:add")
     String addTeam(){
         return "content/team/addTeam";
     }
