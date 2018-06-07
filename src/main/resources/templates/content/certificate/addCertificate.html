@@ -154,7 +154,7 @@
 </div>
 <div th:include="include::footer"></div>
 <script type="text/javascript" src="/js/laydate/laydate.js"></script>
-
+<script src="/js/appjs/baseUrl.js"></script>
 <script>
     laydate.render({
         elem: '#begindate' //指定元素
@@ -218,7 +218,7 @@
         $.ajax({
             cache : false,
             type : "POST",
-            url : "/content/file/upImage",
+            url : "/content/file/upCertImage",
             data :formData,
             async : false,
             dataType: "json",
@@ -239,7 +239,7 @@
     });
 
 
-    var imageUrlPrefix = "http://localhost:8080";
+    var imageUrlPrefix = getBaseUrl();
 
     function showImage(imageUrl) {
         var content = '<div>'

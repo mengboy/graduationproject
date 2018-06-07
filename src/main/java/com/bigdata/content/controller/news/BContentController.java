@@ -90,7 +90,7 @@ public class BContentController {
 
 		if(bContent.getPublishDate().length() == 0 || bContent.getPublishDate().equals("")){
 			Date dt = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			bContent.setPublishDate(sdf.format(dt));
 		}
 

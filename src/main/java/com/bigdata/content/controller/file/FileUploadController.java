@@ -21,11 +21,12 @@ public class FileUploadController {
 
     @Value("${image.upload.dir}")
     private String imageDir;
+    @Value("${certificate.image.url}")
+    private String cert_imageDir;
 
     @RequestMapping("/upImage")
     @ResponseBody
     public Object imageUpload(@RequestParam("img") MultipartFile file){
-        System.out.println();
 
         if(file == null){
             return R.error();
@@ -34,6 +35,26 @@ public class FileUploadController {
         String imgUrl = null;
 
         imgUrl = fileUploadService.saveFile(file, imageDir);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("url", imgUrl);
+
+        return R.ok(map);
+    }
+
+
+
+    @RequestMapping("/upCertImage")
+    @ResponseBody
+    public Object certImageUpload(@RequestParam("img") MultipartFile file){
+
+        if(file == null){
+            return R.error();
+        }
+
+        String imgUrl = null;
+
+        imgUrl = fileUploadService.saveFile(file, cert_imageDir);
 
         Map<String, Object> map = new HashMap<>();
         map.put("url", imgUrl);
