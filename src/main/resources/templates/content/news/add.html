@@ -60,7 +60,7 @@
 							<input id="publish_time" name="publishDate" class="form-control" type="text">
 						</div>
 					</div>
-					<div class="form-group" style="display: none" id="edit_div">
+					<div class="form-group" id="edit_div">
 						<input id="content" name="content" type="hidden"> <label
 							class="col-sm-1 control-label">内容：</label>
 						<div class="col-sm-11">
@@ -153,15 +153,10 @@
 <script>
     $("#types").change(function () {
         var val = $(this).find("option:selected").val();
-        if(val == 1){
-            $("#edit_div").show();
-            $("#link_div").hide();
-        }else if(val == 2){
+        if(val == 2){
             $("#link_div").show();
-            $("#edit_div").hide();
-        }else {
+        } else {
             $("#link_div").hide();
-            $("#edit_div").hide();
         }
         $("#type").val(val);
     });
