@@ -57,7 +57,7 @@
       #{email,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Certificate" >
+  <insert id="insertSelective" parameterType="com.bigdata.content.domain.Certificate" useGeneratedKeys="true" keyProperty="cid">
     insert into certificate
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cid != null" >

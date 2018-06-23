@@ -55,7 +55,7 @@ public class CertificateController {
             e.printStackTrace();
             return R.error();
         }
-        return R.ok();
+        return R.ok().put("cid", certificate.getCid());
     }
 
 

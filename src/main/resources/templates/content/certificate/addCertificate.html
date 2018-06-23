@@ -199,7 +199,7 @@
                     parent.reLoad();
                     // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                     // parent.layer.close(index);
-
+                    $("#cid").val(r.cid);
                 } else {
                     parent.layer.alert(r.msg)
                 }
@@ -256,8 +256,10 @@
     }
 
     $("#photoCover").mouseover(function () {
-        var imageUrl = imageUrlPrefix + $("#headpic").val();
-        showImage(imageUrl);
+        if ($(this).val() !== "" && $(this).val().length > 0){
+            var imageUrl = imageUrlPrefix + $(this).val();
+            showImage(imageUrl);
+        }
     });
 </script>
 
